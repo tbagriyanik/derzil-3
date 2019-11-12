@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ayarlar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/acikGri"
+    tools:context=".ui.ayarlar.AyarlarFragment">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="17dp"
+        android:src="?attr/homeAsUpIndicator"
+        android:tint="#000"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:elevation="3dp"
+        app:fabSize="auto"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="35dp" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:padding="15dp"
+                android:text="@string/switch1" />
+
+            <Switch
+                android:id="@+id/switch2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:padding="15dp"
+                android:text="@string/switch2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/textViewRGBA"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/arkaplan_renk_rgba"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+
+                <SeekBar
+                    android:id="@+id/seekBarR"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#AC0404"
+                    android:max="255"
+                    android:padding="5dp"
+                    android:progress="61" />
+
+                <SeekBar
+                    android:id="@+id/seekBarG"
+                    style="@style/Widget.AppCompat.SeekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#049704"
+                    android:max="255"
+                    android:padding="5dp"
+                    android:progress="90" />
+
+                <SeekBar
+                    android:id="@+id/seekBarB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#04259B"
+                    android:max="255"
+                    android:padding="5dp"
+                    android:progress="254" />
+
+                <SeekBar
+                    android:id="@+id/seekBarA"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/arkaplanTrans"
+                    android:max="255"
+                    android:padding="5dp"
+                    android:progress="25" />
+
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/widgetFontSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@id/radioButton2"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/widgetFontSize"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+
+                <RadioButton
+                    android:id="@+id/radioButton1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12" />
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="14" />
+
+                <RadioButton
+                    android:id="@+id/radioButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="18" />
+
+                <RadioButton
+                    android:id="@+id/radioButton4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/buttonDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/defaultVal"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

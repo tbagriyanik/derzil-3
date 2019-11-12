@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ders Zilleri</string>
+    <string name="tab_text_1">Teneffüsler</string>
+    <string name="tab_text_2">Ayarlar</string>
+    <string name="zilYok">Şimdilik zil yok…</string>
+    <string name="derZilServisKanali">derZil Hizmet Kanalı</string>
+    <string name="arkaplanHizmetiOk">Bildirim çalışıyor</string>
+    <string name="arkaplanHizmetiNo">Bildirim çalışmıyor</string>
+    <string name="switch1">Titreşim</string>
+    <string name="switch2">Zil Sesi</string>
+    <string name="widgetFontSize">Yazı Büyüklüğü</string>
+    <string name="arkaplan_renk_rgba">Widget arkaplan rengi: RGB ve Şeffaflık</string>
+    <string name="defaultVal">Varsayılan Değerler</string>
+    <string name="teneffus_adi">Teneffüs Adı</string>
+    <string name="saatDakikaSure">Saat:Dakika-Süre</string>
+    <string name="action_settings">Ayarlar</string>
+    <string name="save">Kaydet</string>
+    <string name="listeIpucu">Sola sürükleme silme\nAşağı sürükleme yenileme\nKalem ile düzenleyebilirsiniz</string>
+    <string name="refresh">Yenile</string>
+    <string name="Error">İşlem Başarısız!</string>
+    <string name="emptyError">Boş alan bırakılamaz</string>
+    <string name="about">derZil bir çoklu alarm uygulamasıdır.\nAna ekranınıza bir widget ekleyebilir, kilit ekranında bildirimleri görebilirsiniz.\nWidget`ınızı özelleştirmek kolaydır. Zil zamanlarınızı ekleyin ve zamanı gelince uyarı alın.\nhttp://yunus.sf.net</string>
+    <string name="todo">TODO</string>
+    <string name="Success">İşlem Başarılı</string>
+    <string name="geri">Geri Dön</string>
+    <string name="activeState">Aktif</string>
+    <string name="hafta1">P</string>
+    <string name="hafta2">S</string>
+    <string name="hafta3">Ç</string>
+    <string name="hafta4">P</string>
+    <string name="hafta5">C</string>
+    <string name="hafta6">C</string>
+    <string name="hafta7">P</string>
+</resources>
