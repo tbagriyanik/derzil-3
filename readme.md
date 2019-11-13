@@ -32,7 +32,3 @@ derzil 2 - Few options
 ## Authors
 
 * **Tarik BAGRIYANIK** - *ICT Teacher* - [yunus.sf.net](http://yunus.sf.net)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
