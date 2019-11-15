@@ -2,7 +2,6 @@ package com.tuzla.database.mRecycler;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -26,14 +25,12 @@ import java.util.ArrayList;
 public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
 
     RecyclerView rv;
-    MyAdapter adapter;
-    SharedPreferences pref;
     private Context c;
     private ArrayList<Ziller> zillers;
     private EditText nameEditText, zamanEditText;
     private CheckBox hafta1, hafta2, hafta3, hafta4, hafta5, hafta6, hafta7;
     private Switch switchActive;
-    private Button saveBtn;
+    private Button saveBtn, duplicateBtn;
     private Dialog d;
 
     public MyAdapter(Context c, ArrayList<Ziller> zillers) {
@@ -119,7 +116,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         hafta7.setChecked(oldgunler.substring(6, 7).equals("1"));
 
         saveBtn = d.findViewById(R.id.saveBtn);
-
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,15 +132,37 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
                         , zamanEditText.getText().toString()
                         , yeniGunler
                         , switchActive.isChecked() ? 1 : -1);
-                //getZiller();
+                //getZiller(); //otomatik tazeleme var
             }
         });
+
+        duplicateBtn = d.findViewById(R.id.duplicateBtn);
+        duplicateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String yeniGunler = "";
+                yeniGunler += hafta1.isChecked() ? "1" : "0";
+                yeniGunler += hafta2.isChecked() ? "1" : "0";
+                yeniGunler += hafta3.isChecked() ? "1" : "0";
+                yeniGunler += hafta4.isChecked() ? "1" : "0";
+                yeniGunler += hafta5.isChecked() ? "1" : "0";
+                yeniGunler += hafta6.isChecked() ? "1" : "0";
+                yeniGunler += hafta7.isChecked() ? "1" : "0";
+
+                save(    nameEditText.getText().toString()
+                        , zamanEditText.getText().toString()
+                        , yeniGunler
+                        , switchActive.isChecked() ? 1 : -1);
+                //getZiller(); //otomatik tazeleme var
+            }
+        });
+        duplicateBtn.setVisibility(View.VISIBLE);
 
         //SHOW DIALOG
         d.show();
     }
 
-    //EDIT
+    //UPDATE/EDIT
     private void edit(int id, String name, String zaman, String gunler, int aktif) {
         DBAdapter db = new DBAdapter(c);
         db.openDB();
@@ -157,6 +175,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
             }
         } else
             Toast.makeText(c, c.getResources().getString(R.string.emptyError), Toast.LENGTH_SHORT).show();
+        db.closeDB();
+    }
+    //SAVE/ADD
+    private void save(String name, String zaman, String gunler, int aktif) {
+        DBAdapter db = new DBAdapter(c);
+        db.openDB();
+        if (!TextUtils.isEmpty(name.trim()) && !TextUtils.isEmpty(zaman.trim())) {
+            if (db.add(name.trim(), zaman.trim(), gunler, aktif)) {
+                nameEditText.setText("");
+                zamanEditText.setText("");
+                d.dismiss();
+                Toast.makeText(c, c.getResources().getString(R.string.Success), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(c, c.getResources().getString(R.string.Error), Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(c, c.getResources().getString(R.string.emptyError), Toast.LENGTH_SHORT).show();
+        }
+
         db.closeDB();
     }
 

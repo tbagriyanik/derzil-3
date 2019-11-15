@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -28,6 +29,8 @@ import com.tuzla.derzil3.MainActivity;
 import com.tuzla.derzil3.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class swipeActivity extends AppCompatActivity {
 
@@ -102,6 +105,12 @@ public class swipeActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        getZiller();
+    }
+
     private void geri() {
         Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivityForResult(myIntent, 0);
@@ -173,8 +182,48 @@ public class swipeActivity extends AppCompatActivity {
         db.closeDB();
     }
 
+    public class dakikaComparator implements Comparator<Ziller> {
+        @Override
+        public int compare(Ziller o1, Ziller o2) {
+            int dakika1, dakika2, saat1, saat2, sure1, sure2;
+
+            String[] ilk1 = o1.getZaman().split("-"); //- ile ayrılan süreyi sonra kullanacağız
+            String[] ilk2 = o2.getZaman().split("-");
+            if (ilk1.length != 2 || ilk2.length != 2)
+                return 0;
+
+            String[] gelen1 = ilk1[0].split(":"); //ilk bölüm saat:dakika
+            String[] gelen2 = ilk2[0].split(":");
+            if (gelen1.length != 2 || gelen2.length != 2)
+                return 0;
+
+            try {
+                //yazim hatasi olabilir, içi boş olabilir
+                dakika1 = Integer.parseInt(gelen1[1].trim());
+                dakika2 = Integer.parseInt(gelen2[1].trim());
+                saat1 = Integer.parseInt(gelen1[0].trim());
+                saat2 = Integer.parseInt(gelen2[0].trim());
+                sure1 = dakika1 + saat1 * 60;
+                sure2 = dakika2 + saat2 * 60;
+            } catch (NumberFormatException e) {
+                return 0;
+            }
+
+            Log.wtf("sure1 ", Integer.toString(sure1));
+            Log.wtf("sure2 ", Integer.toString(sure2));
+            Log.wtf("---", "---");
+
+            if (sure1 > sure2)
+                return 1;
+            else if (sure1 < sure2)
+                return -1;
+            else
+                return 0;
+        }
+    }
+
     //RETRIEVE
-    private void getZiller() {
+    public void getZiller() {
         zillers.clear();
 
         DBAdapter db = new DBAdapter(this);
@@ -197,6 +246,9 @@ public class swipeActivity extends AppCompatActivity {
 
             zillers.add(p);
         }
+
+        Collections.sort(zillers, new dakikaComparator());
+
         db.closeDB();
 
         if (zillers.size() > 0)

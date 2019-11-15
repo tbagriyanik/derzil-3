@@ -75,7 +75,8 @@ public class DBAdapter {
     public Cursor retrieve() {
         String[] columns = {Constants.ROW_ID, Constants.NAME, Constants.ZAMAN, Constants.GUNLER, Constants.AKTIF};
 
-        return db.query(Constants.TB_NAME, columns, null, null, null, null, null);
+        return db.query(Constants.TB_NAME, columns, null,
+                null, null, null, null);
     }
 
     //DELETE/REMOVE

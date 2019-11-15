@@ -15,14 +15,12 @@
     <string name="saatDakikaSure">Hour:Minute-Duration</string>
     <string name="action_settings">Settings</string>
     <string name="save">Save</string>
-    <string name="refresh">Refresh</string>
     <string name="listeIpucu">Swipe left to delete\nSwipe down to refresh\nClick pen to edit</string>
     <string name="Error">Action Failed!</string>
     <string name="emptyError">Can not leave blank fields</string>
     <string name="about">derZil is a multi alarm notification application.\nYou can add a widget to your main screen or see the lock screen notification.\nCustomizing your widget is easy. Add your bell times and get warned on time.\nhttp://yunus.sf.net</string>
     <string name="todo">TODO</string>
     <string name="Success">Action Successful</string>
-    <string name="geri">Back</string>
     <string name="activeState">Active</string>
     <string name="hafta1">M</string>
     <string name="hafta2">T</string>
@@ -31,5 +29,6 @@
     <string name="hafta5">F</string>
     <string name="hafta6">S</string>
     <string name="hafta7">S</string>
+    <string name="duplicate">Duplicate this</string>
 
 </resources>
