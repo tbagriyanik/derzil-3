@@ -34,14 +34,16 @@ import java.util.Comparator;
 
 public class swipeActivity extends AppCompatActivity {
 
-    RecyclerView rv;
-    MyAdapter adapter;
+    static RecyclerView rv;
+    static MyAdapter adapter;
     EditText nameEditText, zamanEditText;
     CheckBox hafta1, hafta2, hafta3, hafta4, hafta5, hafta6, hafta7;
     Switch switchActive;
 
+    static DBAdapter db ;
+
     Button saveBtn;
-    ArrayList<Ziller> zillers = new ArrayList<>();
+    static ArrayList<Ziller> zillers = new ArrayList<>();
 
     Dialog d;
     private SwipeRefreshLayout swipeContainer;
@@ -60,6 +62,8 @@ public class swipeActivity extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new MyAdapter(this, zillers);
+
+        db = new DBAdapter(this);
 
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,7 +171,7 @@ public class swipeActivity extends AppCompatActivity {
         DBAdapter db = new DBAdapter(this);
         db.openDB();
         if (!TextUtils.isEmpty(name.trim()) && !TextUtils.isEmpty(zaman.trim())) {
-            if (db.add(name.trim(), zaman.trim(), gunler, aktif)) {
+            if (db.add(name.trim(), zaman.replace(" ", ""), gunler, aktif)) {
                 nameEditText.setText("");
                 zamanEditText.setText("");
                 d.dismiss();
@@ -182,7 +186,7 @@ public class swipeActivity extends AppCompatActivity {
         db.closeDB();
     }
 
-    public class dakikaComparator implements Comparator<Ziller> {
+    public static class dakikaComparator implements Comparator<Ziller> {
         @Override
         public int compare(Ziller o1, Ziller o2) {
             int dakika1, dakika2, saat1, saat2, sure1, sure2;
@@ -223,10 +227,9 @@ public class swipeActivity extends AppCompatActivity {
     }
 
     //RETRIEVE
-    public void getZiller() {
+    public static void getZiller() {
         zillers.clear();
 
-        DBAdapter db = new DBAdapter(this);
         db.openDB();
         Cursor c = db.retrieve();
 

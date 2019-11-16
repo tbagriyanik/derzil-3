@@ -9,14 +9,14 @@
     <string name="arkaplanHizmetiNo">Bildirim çalışmıyor</string>
     <string name="switch1">Titreşim</string>
     <string name="switch2">Zil Sesi</string>
-    <string name="widgetFontSize">Yazı Büyüklüğü</string>
+    <string name="widgetFontSize">Widget Yazı Büyüklüğü</string>
     <string name="arkaplan_renk_rgba">Widget arkaplan rengi: RGB ve Şeffaflık</string>
     <string name="defaultVal">Varsayılan Değerler</string>
     <string name="teneffus_adi">Teneffüs Adı</string>
     <string name="saatDakikaSure">Saat:Dakika-Süre</string>
     <string name="action_settings">Ayarlar</string>
     <string name="save">Kaydet</string>
-    <string name="listeIpucu">Sola sürükleme silme\nAşağı sürükleme yenileme\nKalem ile düzenleyebilirsiniz</string>
+    <string name="listeIpucu">Sola sürükleme silme\nSimgesi ile düzenleme</string>
     <string name="Error">İşlem Başarısız!</string>
     <string name="emptyError">Boş alan bırakılamaz</string>
     <string name="about">derZil bir çoklu alarm uygulamasıdır.\nAna ekranınıza bir widget ekleyebilir, kilit ekranında bildirimleri görebilirsiniz.\nWidget`ınızı özelleştirmek kolaydır. Zil zamanlarınızı ekleyin ve zamanı gelince uyarı alın.\nhttp://yunus.sf.net</string>

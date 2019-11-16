@@ -34,7 +34,35 @@ public class DBAdapter {
         }
     }
 
-    //EDIT
+    public boolean saatFormat(String gelen) {
+        int dakika, saat, sure;
+
+        String[] ilk = gelen.split("-"); //- ile ayrılan süreyi sonra kullanacağız
+
+        if (ilk.length != 2) return false;
+
+        String[] ikinci = ilk[0].split(":"); //ilk bölüm saat:dakika
+
+        if (ikinci.length != 2) return false;
+
+        try {
+            //yazim hatasi olabilir, içi boş olabilir
+            dakika = Integer.parseInt(ikinci[1].trim());
+            saat = Integer.parseInt(ikinci[0].trim());
+            sure = Integer.parseInt(ilk[1].trim());
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        if (dakika < 0 || dakika > 59
+                || saat < 0 || saat > 23
+                || sure < 0 || sure > 1000)
+            return false;
+        else
+            return true;
+    }
+
+    //EDIT/UPDATE
     public boolean edit(int id, String name, String zaman, String gunler, int aktif) {
         try {
             ContentValues cv = new ContentValues();
@@ -42,6 +70,8 @@ public class DBAdapter {
             cv.put(Constants.ZAMAN, zaman);
             cv.put(Constants.GUNLER, gunler);
             cv.put(Constants.AKTIF, aktif);
+
+            if (!saatFormat(zaman)) return false;
 
             db.update(Constants.TB_NAME, cv,
                     Constants.ROW_ID + "=" + id, null);
@@ -61,6 +91,8 @@ public class DBAdapter {
             cv.put(Constants.ZAMAN, zaman);
             cv.put(Constants.GUNLER, gunler);
             cv.put(Constants.AKTIF, aktif);
+
+            if (!saatFormat(zaman)) return false;
 
             db.insert(Constants.TB_NAME, Constants.ROW_ID, cv);
             return true;

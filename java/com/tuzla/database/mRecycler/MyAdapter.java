@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tuzla.database.mDataBase.DBAdapter;
 import com.tuzla.database.mDataObject.Ziller;
+import com.tuzla.database.swipeActivity;
 import com.tuzla.derzil3.R;
 
 import java.util.ArrayList;
@@ -51,6 +52,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         holder.nametxt.setText(zillers.get(position).getName());
         holder.zamantxt.setText(zillers.get(position).getZaman());
 
+        DBAdapter db = new DBAdapter(c);
+        if (!db.saatFormat(zillers.get(position).getZaman())) {
+            holder.zamantxt.setTextColor(Color.RED);
+        }
+
         if (zillers.get(position).getAktif() == 1)
             holder.nametxt.setTextColor(Color.BLACK);
         else
@@ -72,6 +78,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         holder.editImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //sildikten sonra index güncellenmesi yaptık
                 displayEditDialog(zillers.get(position).getId(),
                         zillers.get(position).getName(),
                         zillers.get(position).getZaman(),
@@ -149,7 +156,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
                 yeniGunler += hafta6.isChecked() ? "1" : "0";
                 yeniGunler += hafta7.isChecked() ? "1" : "0";
 
-                save(    nameEditText.getText().toString()
+                save(nameEditText.getText().toString()
                         , zamanEditText.getText().toString()
                         , yeniGunler
                         , switchActive.isChecked() ? 1 : -1);
@@ -167,22 +174,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         DBAdapter db = new DBAdapter(c);
         db.openDB();
         if (!TextUtils.isEmpty(name.trim()) && !TextUtils.isEmpty(zaman.trim())) {
-            if (db.edit(id, name.trim(), zaman.trim(), gunler, aktif)) {
+            if (db.edit(id, name.trim(), zaman.replace(" ", ""), gunler, aktif)) {
                 nameEditText.setText("");
                 zamanEditText.setText("");
                 Toast.makeText(c, c.getResources().getString(R.string.Success), Toast.LENGTH_SHORT).show();
                 d.dismiss();
+            } else {
+                Toast.makeText(c, c.getResources().getString(R.string.Error), Toast.LENGTH_SHORT).show();
             }
         } else
             Toast.makeText(c, c.getResources().getString(R.string.emptyError), Toast.LENGTH_SHORT).show();
         db.closeDB();
     }
+
     //SAVE/ADD
     private void save(String name, String zaman, String gunler, int aktif) {
         DBAdapter db = new DBAdapter(c);
         db.openDB();
         if (!TextUtils.isEmpty(name.trim()) && !TextUtils.isEmpty(zaman.trim())) {
-            if (db.add(name.trim(), zaman.trim(), gunler, aktif)) {
+            if (db.add(name.trim(), zaman.replace(" ", ""), gunler, aktif)) {
                 nameEditText.setText("");
                 zamanEditText.setText("");
                 d.dismiss();
@@ -218,6 +228,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         }
 
         db.closeDB();
+
+        swipeActivity.getZiller();
+
         this.notifyItemRemoved(pos);
     }
 }

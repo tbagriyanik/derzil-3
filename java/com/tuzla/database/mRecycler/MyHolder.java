@@ -23,4 +23,5 @@ public class MyHolder extends RecyclerView.ViewHolder {
         this.gunlertxt = itemView.findViewById(R.id.textViewDays);
         this.editImage = itemView.findViewById(R.id.editimageView);
     }
+
 }
