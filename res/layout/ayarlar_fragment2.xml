@@ -121,13 +121,13 @@
                     android:id="@+id/radioButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12" />
+                    android:text="14" />
 
                 <RadioButton
                     android:id="@+id/radioButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="14" />
+                    android:text="16" />
 
                 <RadioButton
                     android:id="@+id/radioButton3"

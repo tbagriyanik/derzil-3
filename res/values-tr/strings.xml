@@ -31,4 +31,7 @@
     <string name="hafta6">C</string>
     <string name="hafta7">P</string>
     <string name="duplicate">Bunu Çoğalt</string>
+    <string name="duration">Süre</string>
+    <string name="sec">Seç</string>
+    <string name="iptal">Vazgeç</string>
 </resources>

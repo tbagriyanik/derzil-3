@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 
 public class derzilReceiver extends BroadcastReceiver {
+
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
@@ -25,9 +26,9 @@ public class derzilReceiver extends BroadcastReceiver {
                 ContextCompat.startForegroundService(context, myIntent);
                 Toast.makeText(context, context.getResources().getString(R.string.arkaplanHizmetiOk), Toast.LENGTH_SHORT).show();
             } else {
+                //bu hiç görülmüyor
                 Toast.makeText(context, context.getResources().getString(R.string.arkaplanHizmetiNo), Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 }

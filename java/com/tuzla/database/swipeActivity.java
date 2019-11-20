@@ -1,6 +1,7 @@
 package com.tuzla.database;
 
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +32,7 @@ import com.tuzla.derzil3.MainActivity;
 import com.tuzla.derzil3.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -36,17 +40,47 @@ public class swipeActivity extends AppCompatActivity {
 
     static RecyclerView rv;
     static MyAdapter adapter;
-    EditText nameEditText, zamanEditText;
+    static DBAdapter db;
+    static ArrayList<Ziller> zillers = new ArrayList<>();
+    EditText nameEditText, durationEditText;
+    TextView saatDakikaTextView;
     CheckBox hafta1, hafta2, hafta3, hafta4, hafta5, hafta6, hafta7;
     Switch switchActive;
-
-    static DBAdapter db ;
-
     Button saveBtn;
-    static ArrayList<Ziller> zillers = new ArrayList<>();
-
     Dialog d;
     private SwipeRefreshLayout swipeContainer;
+
+    //RETRIEVE
+    public static void getZiller() {
+        zillers.clear();
+
+        db.openDB();
+        Cursor c = db.retrieve();
+
+        while (c.moveToNext()) {
+            int id = c.getInt(0);
+            String name = c.getString(1);
+            String zaman = c.getString(2);
+            String gunler = c.getString(3);
+            int aktif = c.getInt(4);
+
+            Ziller p = new Ziller();
+            p.setId(id);
+            p.setName(name);
+            p.setZaman(zaman);
+            p.setGunler(gunler);
+            p.setAktif(aktif);
+
+            zillers.add(p);
+        }
+
+        Collections.sort(zillers, new dakikaComparator());
+
+        db.closeDB();
+
+        if (zillers.size() > 0)
+            rv.setAdapter(adapter);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +163,8 @@ public class swipeActivity extends AppCompatActivity {
 
         //Diyalog formundaki nesneleri al
         nameEditText = d.findViewById(R.id.nameEditTxt);
-        zamanEditText = d.findViewById(R.id.zamanEditTxt);
+        durationEditText = d.findViewById(R.id.durationEditTxt);
+        saatDakikaTextView = d.findViewById(R.id.textViewSaatDakika);
         hafta1 = d.findViewById(R.id.checkBox1);
         hafta2 = d.findViewById(R.id.checkBox2);
         hafta3 = d.findViewById(R.id.checkBox3);
@@ -139,8 +174,35 @@ public class swipeActivity extends AppCompatActivity {
         hafta7 = d.findViewById(R.id.checkBox7);
         switchActive = d.findViewById(R.id.switchActive);
 
-        saveBtn = d.findViewById(R.id.saveBtn);
+        saatDakikaTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Şimdiki zaman bilgilerini alıyoruz. güncel saat, güncel dakika.
+                final Calendar takvim = Calendar.getInstance();
+                int saat = takvim.get(Calendar.HOUR_OF_DAY);
+                int dakika = takvim.get(Calendar.MINUTE);
 
+                TimePickerDialog tpd = new TimePickerDialog(swipeActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                // hourOfDay ve minute değerleri seçilen saat değerleridir.
+                                // Edittextte bu değerleri gösteriyoruz.
+                                saatDakikaTextView.setText(hourOfDay + ":" + minute);
+                            }
+                        }, saat, dakika, true);
+                // timepicker açıldığında set edilecek değerleri buraya yazıyoruz.
+                // şimdiki zamanı göstermesi için yukarda tanımladğımız değişkenleri kullanıyoruz.
+                // true değeri 24 saatlik format için.
+
+                // dialog penceresinin button bilgilerini ayarlıyoruz ve ekranda gösteriyoruz.
+                tpd.setButton(TimePickerDialog.BUTTON_POSITIVE, swipeActivity.this.getResources().getString(R.string.sec), tpd);
+                tpd.setButton(TimePickerDialog.BUTTON_NEGATIVE, swipeActivity.this.getResources().getString(R.string.iptal), tpd);
+                tpd.show();
+            }
+        });
+
+        saveBtn = d.findViewById(R.id.saveBtn);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,8 +216,8 @@ public class swipeActivity extends AppCompatActivity {
                 yeniGunler += hafta6.isChecked() ? "1" : "0";
                 yeniGunler += hafta7.isChecked() ? "1" : "0";
 
-                save(nameEditText.getText().toString(),
-                        zamanEditText.getText().toString(),
+                swipeActivity.this.save(nameEditText.getText().toString(),
+                        saatDakikaTextView.getText() + "-" + durationEditText.getText().toString(),
                         yeniGunler,
                         switchActive.isChecked() ? 1 : -1);
                 getZiller();
@@ -173,7 +235,7 @@ public class swipeActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(name.trim()) && !TextUtils.isEmpty(zaman.trim())) {
             if (db.add(name.trim(), zaman.replace(" ", ""), gunler, aktif)) {
                 nameEditText.setText("");
-                zamanEditText.setText("");
+                durationEditText.setText("0");
                 d.dismiss();
                 Toast.makeText(this, getResources().getString(R.string.Success), Toast.LENGTH_SHORT).show();
             } else {
@@ -224,37 +286,5 @@ public class swipeActivity extends AppCompatActivity {
             else
                 return 0;
         }
-    }
-
-    //RETRIEVE
-    public static void getZiller() {
-        zillers.clear();
-
-        db.openDB();
-        Cursor c = db.retrieve();
-
-        while (c.moveToNext()) {
-            int id = c.getInt(0);
-            String name = c.getString(1);
-            String zaman = c.getString(2);
-            String gunler = c.getString(3);
-            int aktif = c.getInt(4);
-
-            Ziller p = new Ziller();
-            p.setId(id);
-            p.setName(name);
-            p.setZaman(zaman);
-            p.setGunler(gunler);
-            p.setAktif(aktif);
-
-            zillers.add(p);
-        }
-
-        Collections.sort(zillers, new dakikaComparator());
-
-        db.closeDB();
-
-        if (zillers.size() > 0)
-            rv.setAdapter(adapter);
     }
 }

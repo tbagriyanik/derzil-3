@@ -26,6 +26,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
+
     Handler handler = new Handler();
     Timer timer;
     Switch m1;
@@ -37,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         m1 = findViewById(R.id.switchHizmet);
-
-        //if (!checkServiceRunning()) startService();
 
         pref = getApplicationContext().getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
 
@@ -138,10 +137,10 @@ public class MainActivity extends AppCompatActivity {
 
         switch (pref.getInt("fontSize", 2)) {
             case 1:
-                view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 12);
+                view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 14);
                 break;
             case 2:
-                view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 14);
+                view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 16);
                 break;
             case 3:
                 view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 18);
@@ -154,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
         ComponentName theWidget = new ComponentName(this, zamanAppWidget.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
         manager.updateAppWidget(theWidget, view);
-
     }
 
     public boolean checkServiceRunning() {
@@ -169,14 +167,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void startService() {
         Intent serviceIntent = new Intent(this, alarmServis.class);
-        // serviceIntent.putExtra("inputExtra", input);
         ContextCompat.startForegroundService(this, serviceIntent);
         Toast.makeText(this, getResources().getString(R.string.arkaplanHizmetiOk), Toast.LENGTH_SHORT).show();
     }
 
     public void stopService() {
         Intent serviceIntent = new Intent(this, alarmServis.class);
-
+        Toast.makeText(this, getResources().getString(R.string.arkaplanHizmetiNo), Toast.LENGTH_SHORT).show();
         stopService(serviceIntent);
     }
 
@@ -197,7 +194,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
 
     public void ayarlariAc(View view) {
         Intent i = new Intent(MainActivity.this, ayarlarActivity.class);

@@ -30,5 +30,8 @@
     <string name="hafta6">S</string>
     <string name="hafta7">S</string>
     <string name="duplicate">Duplicate this</string>
+    <string name="duration">Duration</string>
+    <string name="sec">Select</string>
+    <string name="iptal">Cancel</string>
 
 </resources>

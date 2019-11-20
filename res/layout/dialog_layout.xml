@@ -36,25 +36,50 @@
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/zamanLayout"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp">
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal">
 
-                <EditText
-                    android:id="@+id/zamanEditTxt"
-                    android:layout_width="175dp"
+                <TextView
+                    android:id="@+id/textViewSaatDakika"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="6dp"
+                    android:clickable="true"
+                    android:fontFamily="monospace"
+                    android:gravity="center|center_horizontal"
+                    android:shadowColor="#00202020"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="2"
+                    android:text="10:09"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="24dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/zamanLayout"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:hint="@string/saatDakikaSure"
-                    android:importantForAutofill="no"
-                    android:inputType="text"
-                    android:maxLength="10"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textSize="16sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:padding="5dp">
+
+                    <EditText
+                        android:id="@+id/durationEditTxt"
+                        android:layout_width="102dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:hint="@string/duration"
+                        android:importantForAutofill="no"
+                        android:inputType="numberSigned"
+                        android:maxLength="4"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="0"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
 
 
             <LinearLayout

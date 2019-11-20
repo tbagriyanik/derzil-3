@@ -50,7 +50,7 @@
                 android:text="@string/zilYok"
                 android:textAlignment="center"
                 android:textColor="@color/beyaz"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
 

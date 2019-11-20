@@ -43,7 +43,7 @@
             android:tint="#000"
             app:backgroundTint="@color/colorPrimary"
             app:elevation="3dp"
-            app:fabSize="auto"
+            app:fabSize="mini"
             app:maxImageSize="35dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -56,6 +56,7 @@
             android:layout_marginBottom="5dp"
             android:src="@android:drawable/stat_notify_sync_noanim"
             android:tint="#000"
+            android:visibility="gone"
             app:backgroundTint="@color/colorPrimary"
             app:elevation="3dp"
             app:fabSize="auto"
@@ -68,7 +69,7 @@
             android:layout_below="@+id/fabRefresh"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="9dp"
             android:src="?attr/homeAsUpIndicator"
             android:tint="#000"
             app:backgroundTint="@color/colorPrimaryDark"

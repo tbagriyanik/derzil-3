@@ -1,6 +1,7 @@
 package com.tuzla.database.mRecycler;
 
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
@@ -11,6 +12,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +24,7 @@ import com.tuzla.database.swipeActivity;
 import com.tuzla.derzil3.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
@@ -28,7 +32,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
     RecyclerView rv;
     private Context c;
     private ArrayList<Ziller> zillers;
-    private EditText nameEditText, zamanEditText;
+    private EditText nameEditText, durationEditText;
+    private TextView saatDakikaTextView;
     private CheckBox hafta1, hafta2, hafta3, hafta4, hafta5, hafta6, hafta7;
     private Switch switchActive;
     private Button saveBtn, duplicateBtn;
@@ -79,7 +84,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
             @Override
             public void onClick(View view) {
                 //sildikten sonra index güncellenmesi yaptık
-                displayEditDialog(zillers.get(position).getId(),
+                MyAdapter.this.displayEditDialog(zillers.get(position).getId(),
                         zillers.get(position).getName(),
                         zillers.get(position).getZaman(),
                         zillers.get(position).getGunler(),
@@ -88,7 +93,76 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         });
     }
 
-    private void displayEditDialog(final int id, String oldname, String oldzaman, String oldgunler, int oldaktif) {
+    private int dakikaGetir(String zaman) {
+        int dakika;
+
+        String[] ilk = zaman.split("-"); //- ile ayrılan süre
+
+        if (ilk.length != 2) return -1;
+
+        String[] ikinci = ilk[0].split(":"); //ilk bölüm saat:dakika
+
+        if (ikinci.length != 2) return -1;
+
+        try {
+            dakika = Integer.parseInt(ikinci[1].trim());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+
+        if (dakika < 0 || dakika > 59)
+            return -1;
+        else
+            return dakika;
+    }
+
+    private int saatGetir(String zaman) {
+        int saat;
+
+        String[] ilk = zaman.split("-"); //- ile ayrılan süre
+
+        if (ilk.length != 2) return -1;
+
+        String[] ikinci = ilk[0].split(":"); //ilk bölüm saat:dakika
+
+        if (ikinci.length != 2) return -1;
+
+        try {
+            saat = Integer.parseInt(ikinci[0].trim());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+
+        if (saat < 0 || saat > 23)
+            return -1;
+        else
+            return saat;
+    }
+
+    private int sureGetir(String zaman) {
+        int sure;
+
+        String[] ilk = zaman.split("-"); //- ile ayrılan süre
+
+        if (ilk.length != 2) return -1;
+
+        String[] ikinci = ilk[0].split(":"); //ilk bölüm saat:dakika
+
+        if (ikinci.length != 2) return -1;
+
+        try {
+            sure = Integer.parseInt(ilk[1].trim());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+
+        if (sure < 0 || sure > 1000)
+            return -1;
+        else
+            return sure;
+    }
+
+    private void displayEditDialog(final int id, String oldname, final String oldzaman, String oldgunler, int oldaktif) {
         d = new Dialog(c);
         d.setTitle(c.getResources().getString(R.string.app_name));
         d.setCancelable(true);
@@ -97,7 +171,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
 
         //Diyalog formundaki nesneleri al
         nameEditText = d.findViewById(R.id.nameEditTxt);
-        zamanEditText = d.findViewById(R.id.zamanEditTxt);
+        durationEditText = d.findViewById(R.id.durationEditTxt);
+        saatDakikaTextView = d.findViewById(R.id.textViewSaatDakika);
         hafta1 = d.findViewById(R.id.checkBox1);
         hafta2 = d.findViewById(R.id.checkBox2);
         hafta3 = d.findViewById(R.id.checkBox3);
@@ -108,7 +183,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         switchActive = d.findViewById(R.id.switchActive);
 
         nameEditText.setText(oldname);
-        zamanEditText.setText(oldzaman);
+        String duration = sureGetir(oldzaman)+ "";
+        String saatDakika = saatGetir(oldzaman)+":"+dakikaGetir(oldzaman);
+        durationEditText.setText(duration);
+        saatDakikaTextView.setText(saatDakika);
         switchActive.setChecked(oldaktif == 1);
 
         if (oldgunler.length() < 7)
@@ -121,6 +199,34 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         hafta5.setChecked(oldgunler.substring(4, 5).equals("1"));
         hafta6.setChecked(oldgunler.substring(5, 6).equals("1"));
         hafta7.setChecked(oldgunler.substring(6, 7).equals("1"));
+
+        saatDakikaTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Şimdiki zaman bilgilerini alıyoruz. güncel saat, güncel dakika.
+                final Calendar takvim = Calendar.getInstance();
+                int saat = saatGetir(oldzaman);
+                int dakika = dakikaGetir(oldzaman);
+
+                TimePickerDialog tpd = new TimePickerDialog(c,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                // hourOfDay ve minute değerleri seçilen saat değerleridir.
+                                // Edittextte bu değerleri gösteriyoruz.
+                                saatDakikaTextView.setText(hourOfDay + ":" + minute);
+                            }
+                        }, saat, dakika, true);
+                // timepicker açıldığında set edilecek değerleri buraya yazıyoruz.
+                // şimdiki zamanı göstermesi için yukarda tanımladğımız değişkenleri kullanıyoruz.
+                // true değeri 24 saatlik format için.
+
+                // dialog penceresinin button bilgilerini ayarlıyoruz ve ekranda gösteriyoruz.
+                tpd.setButton(TimePickerDialog.BUTTON_POSITIVE, c.getResources().getString(R.string.sec), tpd);
+                tpd.setButton(TimePickerDialog.BUTTON_NEGATIVE, c.getResources().getString(R.string.iptal), tpd);
+                tpd.show();
+            }
+        });
 
         saveBtn = d.findViewById(R.id.saveBtn);
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -135,8 +241,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
                 yeniGunler += hafta6.isChecked() ? "1" : "0";
                 yeniGunler += hafta7.isChecked() ? "1" : "0";
 
-                edit(id, nameEditText.getText().toString()
-                        , zamanEditText.getText().toString()
+                MyAdapter.this.edit(id, nameEditText.getText().toString()
+                        , saatDakikaTextView.getText() + "-" + durationEditText.getText().toString()
                         , yeniGunler
                         , switchActive.isChecked() ? 1 : -1);
                 //getZiller(); //otomatik tazeleme var
@@ -156,8 +262,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
                 yeniGunler += hafta6.isChecked() ? "1" : "0";
                 yeniGunler += hafta7.isChecked() ? "1" : "0";
 
-                save(nameEditText.getText().toString()
-                        , zamanEditText.getText().toString()
+                MyAdapter.this.save(nameEditText.getText().toString()
+                        , saatDakikaTextView.getText() + "-" + durationEditText.getText().toString()
                         , yeniGunler
                         , switchActive.isChecked() ? 1 : -1);
                 //getZiller(); //otomatik tazeleme var
@@ -176,7 +282,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         if (!TextUtils.isEmpty(name.trim()) && !TextUtils.isEmpty(zaman.trim())) {
             if (db.edit(id, name.trim(), zaman.replace(" ", ""), gunler, aktif)) {
                 nameEditText.setText("");
-                zamanEditText.setText("");
+                durationEditText.setText("0");
                 Toast.makeText(c, c.getResources().getString(R.string.Success), Toast.LENGTH_SHORT).show();
                 d.dismiss();
             } else {
@@ -194,7 +300,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         if (!TextUtils.isEmpty(name.trim()) && !TextUtils.isEmpty(zaman.trim())) {
             if (db.add(name.trim(), zaman.replace(" ", ""), gunler, aktif)) {
                 nameEditText.setText("");
-                zamanEditText.setText("");
+                durationEditText.setText("0");
                 d.dismiss();
                 Toast.makeText(c, c.getResources().getString(R.string.Success), Toast.LENGTH_SHORT).show();
             } else {
