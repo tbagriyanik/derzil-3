@@ -33,5 +33,9 @@
     <string name="duration">Duration</string>
     <string name="sec">Select</string>
     <string name="iptal">Cancel</string>
+    <string name="hourLeft">hour(s) left</string>
+    <string name="minutes">minute(s)</string>
+    <string name="minutesLeft">minute(s) left</string>
+    <string name="toFinish">finishing in</string>
 
 </resources>

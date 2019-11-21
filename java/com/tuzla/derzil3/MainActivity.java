@@ -152,19 +152,19 @@ public class MainActivity extends AppCompatActivity {
         switch (pref.getInt("fontSize", 2)) {
             case 1:
                 view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 14);
-                m2.setTextSize( TypedValue.COMPLEX_UNIT_DIP, 14);
+                m2.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
                 break;
             case 2:
                 view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 16);
-                m2.setTextSize( TypedValue.COMPLEX_UNIT_DIP, 16);
+                m2.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
                 break;
             case 3:
                 view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 18);
-                m2.setTextSize( TypedValue.COMPLEX_UNIT_DIP, 18);
+                m2.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
                 break;
             case 4:
                 view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 20);
-                m2.setTextSize( TypedValue.COMPLEX_UNIT_DIP, 20);
+                m2.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
                 break;
         }
 

@@ -11,9 +11,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Vibrator;
 import android.util.Log;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
@@ -41,7 +43,9 @@ public class alarmServis extends Service {
     static ArrayList<Ziller> zillers = new ArrayList<>();
 
     PendingIntent pendingIntent = null;
+    MediaPlayer mp;
     SharedPreferences pref;
+
     private Handler handler = new Handler();
 
     private Runnable runnable = new Runnable() {
@@ -72,6 +76,18 @@ public class alarmServis extends Service {
         else if (weekday == 6) return gunler.substring(4, 5).equals("1");
         else if (weekday == 7) return gunler.substring(5, 6).equals("1");
         else return false;
+    }
+
+    public static Date getDate(int hour, int minute) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 0);
+        cal.set(Calendar.MONTH, 0);
+        cal.set(Calendar.DAY_OF_MONTH, 0);
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, minute);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
     }
 
     @Override
@@ -237,6 +253,29 @@ public class alarmServis extends Service {
             return saat;
     }
 
+    private int sureGetir(String zaman) {
+        int sure;
+
+        String[] ilk = zaman.split("-"); //- ile ayrılan süre
+
+        if (ilk.length != 2) return -1;
+
+        String[] ikinci = ilk[0].split(":"); //ilk bölüm saat:dakika
+
+        if (ikinci.length != 2) return -1;
+
+        try {
+            sure = Integer.parseInt(ilk[1].trim());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+
+        if (sure < 0 || sure > 1000)
+            return -1;
+        else
+            return sure;
+    }
+
     private void resetAlarm() {
         //getting the alarm manager
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -308,19 +347,6 @@ public class alarmServis extends Service {
         }
     }
 
-    public static Date getDate(int hour, int minute) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, 0);
-        cal.set(Calendar.MONTH, 0);
-        cal.set(Calendar.DAY_OF_MONTH, 0);
-        cal.set(Calendar.HOUR_OF_DAY, hour);
-        cal.set(Calendar.MINUTE, minute);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        return cal.getTime();
-    }
-
-
     private void akilliZilBilgisi() {
 
         if (zillers.size() == 0) {
@@ -329,17 +355,27 @@ public class alarmServis extends Service {
         }
 
         ArrayList<Long> surelerArray = new ArrayList<>();
+        ArrayList<Long> teneffusBitisArray = new ArrayList<>();
 
         for (int i = 0; i < zillers.size(); i++) {
             //veritabanındaki saat:dakika
             int saat = saatGetir(zillers.get(i).getZaman());
             int dakika = dakikaGetir(zillers.get(i).getZaman());
+            int sure = sureGetir(zillers.get(i).getZaman());
 
             Calendar currentTime = Calendar.getInstance();
             long min1 = currentTime.get(Calendar.HOUR_OF_DAY) * 60 + currentTime.get(Calendar.MINUTE);
             long min2 = saat * 60 + dakika;
             long diff = min2 - min1;
-            surelerArray.add(diff);
+            surelerArray.add(diff);              //teneffüs başlangıç zamanı
+            teneffusBitisArray.add(diff + sure); //teneffüs bitiş zamanı
+            if (min1 >= min2 && min1 < min2 + sure) {
+                globalDegerler.hizmetBildirimiMesaji = zillers.get(i).getName() + "\n" +
+                        getResources().getString(R.string.toFinish)+ " "
+                        + (min2 + sure - min1)
+                        + " " + getResources().getString(R.string.minutes);
+                return; //alttakileri yapmasın, teneffüs içindeyiz
+            }
         }
 
         long enKucuk = Long.MAX_VALUE;
@@ -353,13 +389,51 @@ public class alarmServis extends Service {
         if (enKucuk != Long.MAX_VALUE && index != -1) {
             if (enKucuk > 60)
                 globalDegerler.hizmetBildirimiMesaji = zillers.get(index).getName() + "\n" +
-                        new DecimalFormat("#,#0.0").format((double)(enKucuk / 60f)) + " saat kaldı";
+                        new DecimalFormat("#,#0.0").format((double) (enKucuk / 60f))
+                        + " " + getResources().getString(R.string.hourLeft);
             else
-                globalDegerler.hizmetBildirimiMesaji = zillers.get(index).getName() + "\n" + enKucuk + " dakika kaldı";
+                globalDegerler.hizmetBildirimiMesaji = zillers.get(index).getName() + "\n" +
+                        enKucuk
+                        + " " + getResources().getString(R.string.minutesLeft);
+
         } else
             globalDegerler.hizmetBildirimiMesaji = getResources().getString(R.string.zilYok);
     }
 
+    public void alarmCal() {
+        pref = getApplicationContext().getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
+
+        if (!pref.getBoolean("hizmetDurumu", false)) {
+            return;
+        }
+
+        if (pref.getBoolean("titresim", false)) {
+            //titreşim desteği
+            Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            long[] pattern = {0, 100, 50}; //, 200, 50, 200, 50, 200, 50 //3 kere zzıt
+
+            if (v.hasVibrator())
+                v.vibrate(pattern, -1);
+        }
+
+        if (pref.getBoolean("ses", true)) {
+            //ses desteği
+
+//            Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+//            if (alarmUri == null) {
+//                alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//            }
+//            Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
+//            ringtone.play();
+//MP3 seç demektense üstteki gibi olsa iyi, şimdilik çok uzunlar
+            mp = MediaPlayer.create(this, R.raw.zil2);
+            if (mp.isPlaying()) {
+                mp.stop();
+                mp.release();
+            }
+            mp.start();
+        }
+    }
 
     @Override
     public void onDestroy() {

@@ -34,4 +34,8 @@
     <string name="duration">Süre</string>
     <string name="sec">Seç</string>
     <string name="iptal">Vazgeç</string>
+    <string name="hourLeft">saat kaldı</string>
+    <string name="minutesLeft">dakika kaldı</string>
+    <string name="toFinish">bitmesine</string>
+    <string name="minutes">dakika</string>
 </resources>

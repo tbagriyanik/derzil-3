@@ -26,6 +26,7 @@ import com.tuzla.derzil3.R;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
@@ -83,6 +84,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
 
         holder.gunlertxt.setText(gunler);
 
+        int saat = saatGetir(zillers.get(position).getZaman());
+        int dakika = dakikaGetir(zillers.get(position).getZaman());
+
+        Calendar currentTime = Calendar.getInstance();
+        long min1 = currentTime.get(Calendar.HOUR_OF_DAY) * 60 + currentTime.get(Calendar.MINUTE);
+        long min2 = saat * 60 + dakika;
+        long diff = min2 - min1;
+        if (diff > 0)
+            holder.bgItem.setBackgroundColor(c.getResources().getColor(R.color.beyaz));
+        else
+            holder.bgItem.setBackgroundColor(c.getResources().getColor(R.color.acikMavi));
+
         holder.editImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +115,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         }
         return str;
     }
+
     private int dakikaGetir(String zaman) {
         int dakika;
 
@@ -235,11 +249,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
                                 }
                             }
                         }, saat, dakika, true);
-                // timepicker açıldığında set edilecek değerleri buraya yazıyoruz.
-                // şimdiki zamanı göstermesi için yukarda tanımladğımız değişkenleri kullanıyoruz.
-                // true değeri 24 saatlik format için.
 
-                // dialog penceresinin button bilgilerini ayarlıyoruz ve ekranda gösteriyoruz.
                 tpd.setButton(TimePickerDialog.BUTTON_POSITIVE, c.getResources().getString(R.string.sec), tpd);
                 tpd.setButton(TimePickerDialog.BUTTON_NEGATIVE, c.getResources().getString(R.string.iptal), tpd);
                 tpd.show();

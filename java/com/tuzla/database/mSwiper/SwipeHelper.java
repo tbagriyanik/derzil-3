@@ -10,10 +10,6 @@ public class SwipeHelper extends ItemTouchHelper.SimpleCallback {
 
     MyAdapter adapter;
 
-    public SwipeHelper(int dragDirs, int swipeDirs) {
-        super(dragDirs, swipeDirs);
-    }
-
     public SwipeHelper(MyAdapter adapter) {
         super(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT);
         this.adapter = adapter;

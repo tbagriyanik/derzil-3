@@ -2,6 +2,7 @@ package com.tuzla.database.mRecycler;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ public class MyHolder extends RecyclerView.ViewHolder {
     TextView zamantxt;
     TextView gunlertxt;
     ImageView editImage;
+    RelativeLayout bgItem;
 
     public MyHolder(View itemView) {
         super(itemView);
@@ -22,6 +24,7 @@ public class MyHolder extends RecyclerView.ViewHolder {
         this.zamantxt = itemView.findViewById(R.id.zamanTxt);
         this.gunlertxt = itemView.findViewById(R.id.textViewDays);
         this.editImage = itemView.findViewById(R.id.editimageView);
+        this.bgItem = itemView.findViewById(R.id.itemBG);
     }
 
 }

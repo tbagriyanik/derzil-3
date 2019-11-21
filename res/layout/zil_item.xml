@@ -5,11 +5,13 @@
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
     android:orientation="horizontal"
-    card_view:cardCornerRadius="3dp"
+    card_view:cardBackgroundColor="@color/beyaz"
 
-    card_view:cardElevation="3dp">
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="5dp">
 
     <RelativeLayout
+        android:id="@+id/itemBG"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
