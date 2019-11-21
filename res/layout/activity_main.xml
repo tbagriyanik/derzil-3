@@ -62,11 +62,12 @@
 
                 <TextView
                     android:id="@+id/mesaj2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:gravity="center_horizontal"
                     android:minHeight="?actionBarSize"
                     android:padding="@dimen/appbar_padding"
+                    android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/beyaz"
                     android:textSize="14sp"
@@ -104,8 +105,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:autoLink="all"
-                    android:fontFamily="sans-serif-medium"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="@string/about"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/beyaz"
                     android:textSize="18sp" />
             </LinearLayout>

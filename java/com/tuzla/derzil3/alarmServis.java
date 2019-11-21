@@ -26,6 +26,7 @@ import androidx.core.graphics.ColorUtils;
 import com.tuzla.database.mDataBase.DBAdapter;
 import com.tuzla.database.mDataObject.Ziller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -344,15 +345,19 @@ public class alarmServis extends Service {
         long enKucuk = Long.MAX_VALUE;
         int index = -1;
         for (int i = 0; i < surelerArray.size(); i++)
-            if (surelerArray.get(i) < enKucuk && surelerArray.get(i)>0) {
+            if (surelerArray.get(i) < enKucuk && surelerArray.get(i) > 0) {
                 enKucuk = surelerArray.get(i);
                 index = i;
             }
 
-        if (enKucuk != Long.MAX_VALUE && index != -1)
-            globalDegerler.hizmetBildirimiMesaji = zillers.get(index).getName() + " için " + enKucuk + " dakika kaldı";
-        else
-            globalDegerler.hizmetBildirimiMesaji = "Şimdilik zil yok";
+        if (enKucuk != Long.MAX_VALUE && index != -1) {
+            if (enKucuk > 60)
+                globalDegerler.hizmetBildirimiMesaji = zillers.get(index).getName() + "\n" +
+                        new DecimalFormat("#,#0.0").format((double)(enKucuk / 60f)) + " saat kaldı";
+            else
+                globalDegerler.hizmetBildirimiMesaji = zillers.get(index).getName() + "\n" + enKucuk + " dakika kaldı";
+        } else
+            globalDegerler.hizmetBildirimiMesaji = getResources().getString(R.string.zilYok);
     }
 
 

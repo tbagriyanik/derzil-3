@@ -16,10 +16,14 @@
 
         <TextView
             android:id="@+id/nameTxt"
-            android:layout_width="200dp"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
             android:layout_toEndOf="@+id/editimageView"
             android:ellipsize="end"
+            android:fontFamily="sans-serif-condensed-medium"
             android:padding="5dp"
             android:text="@string/teneffus_adi"
             android:textAllCaps="false"
@@ -36,20 +40,22 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="2dp"
             android:layout_toEndOf="@+id/nameTxt"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="monospace"
             android:gravity="center_vertical"
-            android:padding="10dp"
-            android:text="@string/saatDakikaSure"
-            android:textAlignment="textEnd"
+            android:padding="5dp"
+            android:text="00:00-1000"
+            android:textAlignment="textStart"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18sp" />
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            android:typeface="monospace" />
 
         <ImageView
             android:id="@+id/editimageView"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
             android:layout_marginTop="10dp"
             android:clickable="true"
             android:contentDescription="@string/todo"
@@ -68,6 +74,7 @@
             android:layout_toEndOf="@+id/editimageView"
             android:fontFamily="monospace"
             android:text="-------"
+            android:textColor="@color/arkaplan"
             android:textSize="14sp" />
 
 

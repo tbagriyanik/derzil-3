@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -31,6 +32,8 @@ import com.tuzla.database.mSwiper.SwipeHelper;
 import com.tuzla.derzil3.MainActivity;
 import com.tuzla.derzil3.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -99,6 +102,16 @@ public class swipeActivity extends AppCompatActivity {
 
         db = new DBAdapter(this);
 
+        // This callback will only be called when MyFragment is at least Started.
+        OnBackPressedCallback callbackGeri = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button event
+                geri();
+            }
+        };
+        this.getOnBackPressedDispatcher().addCallback(this, callbackGeri);
+
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,6 +167,52 @@ public class swipeActivity extends AppCompatActivity {
         startActivityForResult(myIntent, 0);
     }
 
+    private int dakikaGetir(String zaman) {
+        int dakika;
+
+        String[] ilk = zaman.split("-"); //- ile ayrılan süre
+
+        if (ilk.length != 2) return -1;
+
+        String[] ikinci = ilk[0].split(":"); //ilk bölüm saat:dakika
+
+        if (ikinci.length != 2) return -1;
+
+        try {
+            dakika = Integer.parseInt(ikinci[1].trim());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+
+        if (dakika < 0 || dakika > 59)
+            return -1;
+        else
+            return dakika;
+    }
+
+    private int saatGetir(String zaman) {
+        int saat;
+
+        String[] ilk = zaman.split("-"); //- ile ayrılan süre
+
+        if (ilk.length != 2) return -1;
+
+        String[] ikinci = ilk[0].split(":"); //ilk bölüm saat:dakika
+
+        if (ikinci.length != 2) return -1;
+
+        try {
+            saat = Integer.parseInt(ikinci[0].trim());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+
+        if (saat < 0 || saat > 23)
+            return -1;
+        else
+            return saat;
+    }
+
     private void displayDialog() {
         d = new Dialog(this);
         d.setTitle(getResources().getString(R.string.app_name));
@@ -165,6 +224,13 @@ public class swipeActivity extends AppCompatActivity {
         nameEditText = d.findViewById(R.id.nameEditTxt);
         durationEditText = d.findViewById(R.id.durationEditTxt);
         saatDakikaTextView = d.findViewById(R.id.textViewSaatDakika);
+        try {
+            saatDakikaTextView.setText(new SimpleDateFormat("HH:mm").format(
+                    new SimpleDateFormat("HH:mm").parse(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)+":"+
+                            Calendar.getInstance().get(Calendar.MINUTE))));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         hafta1 = d.findViewById(R.id.checkBox1);
         hafta2 = d.findViewById(R.id.checkBox2);
         hafta3 = d.findViewById(R.id.checkBox3);
@@ -177,10 +243,8 @@ public class swipeActivity extends AppCompatActivity {
         saatDakikaTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Şimdiki zaman bilgilerini alıyoruz. güncel saat, güncel dakika.
-                final Calendar takvim = Calendar.getInstance();
-                int saat = takvim.get(Calendar.HOUR_OF_DAY);
-                int dakika = takvim.get(Calendar.MINUTE);
+                int saat = Integer.parseInt(saatDakikaTextView.getText().toString().split(":")[0]);
+                int dakika = Integer.parseInt(saatDakikaTextView.getText().toString().split(":")[1]);
 
                 TimePickerDialog tpd = new TimePickerDialog(swipeActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
@@ -188,7 +252,12 @@ public class swipeActivity extends AppCompatActivity {
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 // hourOfDay ve minute değerleri seçilen saat değerleridir.
                                 // Edittextte bu değerleri gösteriyoruz.
-                                saatDakikaTextView.setText(hourOfDay + ":" + minute);
+                                try {
+                                    saatDakikaTextView.setText(new SimpleDateFormat("HH:mm").format(
+                                            new SimpleDateFormat("HH:mm").parse(hourOfDay + ":" + minute)));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }, saat, dakika, true);
                 // timepicker açıldığında set edilecek değerleri buraya yazıyoruz.

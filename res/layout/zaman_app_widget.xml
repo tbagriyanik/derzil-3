@@ -12,13 +12,14 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:padding="2dp">
 
         <Button
             android:id="@+id/ayarbutton"
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
             android:background="@mipmap/ic_launcher_round"
             android:textAlignment="viewStart" />
 
@@ -34,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
                 android:format24Hour="d MMMM EEEE, HH:mm:ss"
-                android:padding="2dp"
+                android:padding="1dp"
                 android:paddingTop="-10dp"
                 android:shadowColor="#00FA0000"
                 android:textAlignment="center"
@@ -46,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif-condensed"
-                android:padding="3dp"
+                android:padding="2dp"
                 android:text="@string/zilYok"
                 android:textAlignment="center"
                 android:textColor="@color/beyaz"

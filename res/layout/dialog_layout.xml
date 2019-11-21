@@ -20,11 +20,12 @@
                 android:id="@+id/nameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:padding="5dp">
 
                 <EditText
                     android:id="@+id/nameEditTxt"
-                    android:layout_width="match_parent"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:hint="@string/teneffus_adi"
@@ -45,15 +46,11 @@
                     android:id="@+id/textViewSaatDakika"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="8dp"
                     android:clickable="true"
                     android:fontFamily="monospace"
                     android:gravity="center|center_horizontal"
-                    android:shadowColor="#00202020"
-                    android:shadowDx="2"
-                    android:shadowDy="2"
-                    android:shadowRadius="2"
-                    android:text="10:09"
+                    android:text="0:0"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccent"
                     android:textSize="24dp" />
@@ -91,10 +88,15 @@
 
                 <CheckBox
                     android:id="@+id/checkBox1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="60dp"
                     android:fontFamily="sans-serif-condensed"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
                     android:text="@string/hafta1"
+                    android:button="@null"
+                    android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+                    android:textAlignment="gravity"
                     android:textSize="14sp" />
 
                 <CheckBox
@@ -103,6 +105,11 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
                     android:text="@string/hafta2"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:button="@null"
+                    android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+                    android:textAlignment="gravity"
                     android:textSize="14sp" />
 
                 <CheckBox
@@ -111,6 +118,11 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
                     android:text="@string/hafta3"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:button="@null"
+                    android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+                    android:textAlignment="gravity"
                     android:textSize="14sp" />
 
                 <CheckBox
@@ -119,6 +131,12 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
                     android:text="@string/hafta4"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:button="@null"
+                    android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+                    android:textAlignment="gravity"
+
                     android:textSize="14sp" />
 
                 <CheckBox
@@ -127,6 +145,12 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
                     android:text="@string/hafta5"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:button="@null"
+                    android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+                    android:textAlignment="gravity"
+
                     android:textSize="14sp" />
 
                 <CheckBox
@@ -135,6 +159,12 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
                     android:text="@string/hafta6"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:button="@null"
+                    android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+                    android:textAlignment="gravity"
+
                     android:textSize="14sp" />
 
                 <CheckBox
@@ -143,6 +173,11 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
                     android:text="@string/hafta7"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:button="@null"
+                    android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+                    android:textAlignment="gravity"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -150,8 +185,10 @@
                 android:id="@+id/switchActive"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:checked="true"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="@string/activeState" />
 
             <Button

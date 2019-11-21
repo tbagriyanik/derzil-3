@@ -16,6 +16,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
@@ -38,6 +39,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         m1 = findViewById(R.id.switchHizmet);
+
+        // This callback will only be called when MyFragment is at least Started.
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button event
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        };
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
 
         pref = getApplicationContext().getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
 
@@ -138,15 +152,19 @@ public class MainActivity extends AppCompatActivity {
         switch (pref.getInt("fontSize", 2)) {
             case 1:
                 view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 14);
+                m2.setTextSize( TypedValue.COMPLEX_UNIT_DIP, 14);
                 break;
             case 2:
                 view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 16);
+                m2.setTextSize( TypedValue.COMPLEX_UNIT_DIP, 16);
                 break;
             case 3:
                 view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 18);
+                m2.setTextSize( TypedValue.COMPLEX_UNIT_DIP, 18);
                 break;
             case 4:
                 view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 20);
+                m2.setTextSize( TypedValue.COMPLEX_UNIT_DIP, 20);
                 break;
         }
 

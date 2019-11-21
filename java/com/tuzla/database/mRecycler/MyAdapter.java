@@ -23,8 +23,9 @@ import com.tuzla.database.mDataObject.Ziller;
 import com.tuzla.database.swipeActivity;
 import com.tuzla.derzil3.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 
 public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
@@ -70,13 +71,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         String gunler = "";
         String gelenBilgi = zillers.get(position).getGunler();
 
-        gunler += gelenBilgi.substring(0, 1).equals("1") ? c.getResources().getString(R.string.hafta1) : "-";
-        gunler += gelenBilgi.substring(1, 2).equals("1") ? c.getResources().getString(R.string.hafta2) : "-";
-        gunler += gelenBilgi.substring(2, 3).equals("1") ? c.getResources().getString(R.string.hafta3) : "-";
-        gunler += gelenBilgi.substring(3, 4).equals("1") ? c.getResources().getString(R.string.hafta4) : "-";
-        gunler += gelenBilgi.substring(4, 5).equals("1") ? c.getResources().getString(R.string.hafta5) : "-";
-        gunler += gelenBilgi.substring(5, 6).equals("1") ? c.getResources().getString(R.string.hafta6) : "-";
-        gunler += gelenBilgi.substring(6, 7).equals("1") ? c.getResources().getString(R.string.hafta7) : "-";
+        gunler += gelenBilgi.substring(0, 1).equals("1") ? c.getResources().getString(R.string.hafta1) + "," : "";
+        gunler += gelenBilgi.substring(1, 2).equals("1") ? c.getResources().getString(R.string.hafta2) + "," : "";
+        gunler += gelenBilgi.substring(2, 3).equals("1") ? c.getResources().getString(R.string.hafta3) + "," : "";
+        gunler += gelenBilgi.substring(3, 4).equals("1") ? c.getResources().getString(R.string.hafta4) + "," : "";
+        gunler += gelenBilgi.substring(4, 5).equals("1") ? c.getResources().getString(R.string.hafta5) + "," : "";
+        gunler += gelenBilgi.substring(5, 6).equals("1") ? c.getResources().getString(R.string.hafta6) + "," : "";
+        gunler += gelenBilgi.substring(6, 7).equals("1") ? c.getResources().getString(R.string.hafta7) : "";
+
+        gunler = sonVirgul(gunler);
 
         holder.gunlertxt.setText(gunler);
 
@@ -93,6 +96,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         });
     }
 
+    public String sonVirgul(String str) {
+        if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == ',') {
+            str = str.substring(0, str.length() - 1);
+        }
+        return str;
+    }
     private int dakikaGetir(String zaman) {
         int dakika;
 
@@ -183,10 +192,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         switchActive = d.findViewById(R.id.switchActive);
 
         nameEditText.setText(oldname);
-        String duration = sureGetir(oldzaman)+ "";
-        String saatDakika = saatGetir(oldzaman)+":"+dakikaGetir(oldzaman);
+        String duration = sureGetir(oldzaman) + "";
         durationEditText.setText(duration);
-        saatDakikaTextView.setText(saatDakika);
+
+        String saatDakika = saatGetir(oldzaman) + ":" + dakikaGetir(oldzaman);
+        try {
+            saatDakikaTextView.setText(new SimpleDateFormat("HH:mm").format(
+                    new SimpleDateFormat("HH:mm").parse(saatDakika)));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         switchActive.setChecked(oldaktif == 1);
 
         if (oldgunler.length() < 7)
@@ -203,18 +219,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         saatDakikaTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Şimdiki zaman bilgilerini alıyoruz. güncel saat, güncel dakika.
-                final Calendar takvim = Calendar.getInstance();
-                int saat = saatGetir(oldzaman);
-                int dakika = dakikaGetir(oldzaman);
+                int saat = Integer.parseInt(saatDakikaTextView.getText().toString().split(":")[0]);
+                int dakika = Integer.parseInt(saatDakikaTextView.getText().toString().split(":")[1]);
 
                 TimePickerDialog tpd = new TimePickerDialog(c,
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 // hourOfDay ve minute değerleri seçilen saat değerleridir.
-                                // Edittextte bu değerleri gösteriyoruz.
-                                saatDakikaTextView.setText(hourOfDay + ":" + minute);
+                                try {
+                                    saatDakikaTextView.setText(new SimpleDateFormat("HH:mm").format(
+                                            new SimpleDateFormat("HH:mm").parse(hourOfDay + ":" + minute)));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }, saat, dakika, true);
                 // timepicker açıldığında set edilecek değerleri buraya yazıyoruz.

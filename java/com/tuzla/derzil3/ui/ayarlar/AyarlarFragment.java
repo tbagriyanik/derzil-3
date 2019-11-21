@@ -14,6 +14,7 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -51,6 +52,16 @@ public class AyarlarFragment extends Fragment {
 
         pref = this.getActivity().getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
+
+        // This callback will only be called when MyFragment is at least Started.
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button event
+                geri();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
 
         FloatingActionButton fabHome = vw.findViewById(R.id.fabHome);
         fabHome.setOnClickListener(new View.OnClickListener() {
