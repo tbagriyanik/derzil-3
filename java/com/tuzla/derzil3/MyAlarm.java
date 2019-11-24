@@ -14,7 +14,7 @@ import java.util.Date;
 import static android.content.Context.VIBRATOR_SERVICE;
 
 public class MyAlarm extends BroadcastReceiver {
-    MediaPlayer mp;
+
     SharedPreferences pref;
 
     @Override
@@ -44,6 +44,7 @@ public class MyAlarm extends BroadcastReceiver {
 //            Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
 //            ringtone.play();
 //MP3 seç demektense üstteki gibi olsa iyi, şimdilik çok uzunlar
+            MediaPlayer mp;
             mp = MediaPlayer.create(context, R.raw.zil2);
             if (mp.isPlaying()) {
                 mp.stop();

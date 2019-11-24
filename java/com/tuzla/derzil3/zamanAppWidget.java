@@ -20,14 +20,11 @@ public class zamanAppWidget extends AppWidgetProvider {
 
         //düğmeye basınca ana program açılır, ilk mesaj yüklenir
         Intent intent = new Intent(context, MainActivity.class);
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context,
-                appWidgetId,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent,0);
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.zaman_app_widget);
-        views.setTextViewText(R.id.teneffustextView, globalDegerler.hizmetDurumuMesaji);
         views.setOnClickPendingIntent(R.id.ayarbutton, pendingIntent);
+
+        views.setTextViewText(R.id.teneffustextView, globalDegerler.hizmetDurumuMesaji);
 
         pref = context.getApplicationContext().getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
 
@@ -59,29 +56,11 @@ public class zamanAppWidget extends AppWidgetProvider {
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
-    static void updateWidgetText(Context context, int appWidgetId, String newText) {
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.zaman_app_widget);
-        views.setTextViewText(R.id.teneffustextView, newText);
-        AppWidgetManager.getInstance(context).updateAppWidget(appWidgetId, views);
-    }
-
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
-        }
-    }
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        if (intent.getAction() == null) {
-            int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1);
-            if (appWidgetId != -1) {
-                updateWidgetText(context, appWidgetId, Math.random() + "");
-            }
-        } else {
-            super.onReceive(context, intent);
         }
     }
 
