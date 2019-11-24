@@ -1,6 +1,5 @@
 package com.tuzla.derzil3;
 
-import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -11,10 +10,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
-import android.util.Log;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
 
@@ -33,24 +30,21 @@ import java.util.Calendar;
 import static com.tuzla.derzil3.App.CHANNEL_ID;
 
 public class alarmServis extends Service {
-    public static final int REQUEST_CODE = 101;
     private static final int NOTIF_ID = 1;
-
-    static DBAdapter db;
-    static ArrayList<Ziller> zillers = new ArrayList<>();
 
     PendingIntent pendingIntent = null;
     SharedPreferences pref;
 
-    private Handler handler = new Handler();
+    static DBAdapter db;
+    static ArrayList<Ziller> zillers = new ArrayList<>();
 
+    private Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
 
         @Override
         public void run() {
-            getZiller(); //veritabanından listeyi al
-            alarmlariAyarla(); //alarmları oluştur
 
+            getZiller(); //veritabanından listeyi al
             akilliZilBilgisi(); //alarm bilgilerine göre
             //widget ve notification güncelleme
             bilgileriGuncelle(globalDegerler.hizmetBildirimiMesaji);
@@ -58,21 +52,6 @@ public class alarmServis extends Service {
             handler.postDelayed(this, 3000); //3 saniye refresh 60*1000 olacak?
         }
     };
-
-    private static boolean gunKontrol(String gunler) {
-        Calendar calendar = Calendar.getInstance();
-        int weekday = calendar.get(Calendar.DAY_OF_WEEK);
-        //PAZAR 1, pzt 2, sali 3, çars 4, pers 5, cuma 6, cmt 7
-        //bizim vt'de Pzrt,..., Pzr
-        if (weekday == 1) return gunler.substring(6, 7).equals("1");
-        else if (weekday == 2) return gunler.substring(0, 1).equals("1");
-        else if (weekday == 3) return gunler.substring(1, 2).equals("1");
-        else if (weekday == 4) return gunler.substring(2, 3).equals("1");
-        else if (weekday == 5) return gunler.substring(3, 4).equals("1");
-        else if (weekday == 6) return gunler.substring(4, 5).equals("1");
-        else if (weekday == 7) return gunler.substring(5, 6).equals("1");
-        else return false;
-    }
 
     @Override
     public void onCreate() {
@@ -84,71 +63,6 @@ public class alarmServis extends Service {
         startForeground(NOTIF_ID, getMyActivityNotification(""));
     }
 
-    private Notification getMyActivityNotification(String text) {
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        pendingIntent = PendingIntent.getActivity(this,
-                0, notificationIntent, 0);
-
-        Notification mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle(text) //üst kalın başlık
-                //.setContentText(text)
-                .setOnlyAlertOnce(true) //1 kere açılır
-                .setOngoing(true)
-                .setSmallIcon(R.drawable.bell)
-                .setColor(ContextCompat.getColor(this, R.color.arkaplan))
-                .setContentIntent(pendingIntent).getNotification();
-        return mBuilder;
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        handler.postDelayed(runnable, 2000);
-
-        globalDegerler.hizmetBildirimiMesaji = "..";
-        bilgileriGuncelle(globalDegerler.hizmetBildirimiMesaji);
-
-        //do heavy work on a background thread
-        return START_NOT_STICKY;
-    }
-
-    public void bilgileriGuncelle(String mesaj) {
-        pref = getApplicationContext().getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
-
-        RemoteViews view = new RemoteViews(getPackageName(), R.layout.zaman_app_widget);
-
-        view.setInt(R.id.rootBG, "setBackgroundColor",
-                ColorUtils.setAlphaComponent(Color.argb(
-                        pref.getInt("alpha", 50)
-                        , pref.getInt("red", 61)
-                        , pref.getInt("green", 90)
-                        , pref.getInt("blue", 254)),
-                        pref.getInt("alpha", 50)));
-
-        switch (pref.getInt("fontSize", 2)) {
-            case 1:
-                view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 14);
-                break;
-            case 2:
-                view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 16);
-                break;
-            case 3:
-                view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 18);
-                break;
-            case 4:
-                view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 20);
-                break;
-        }
-
-        view.setTextViewText(R.id.teneffustextView, mesaj);
-
-        ComponentName theWidget = new ComponentName(this, zamanAppWidget.class);
-        AppWidgetManager manager = AppWidgetManager.getInstance(this);
-        manager.updateAppWidget(theWidget, view);
-
-        startForeground(NOTIF_ID, getMyActivityNotification(mesaj));
-    }
-
-    //GET DATA
     public void getZiller() {
         zillers.clear();
 
@@ -189,6 +103,21 @@ public class alarmServis extends Service {
         }
 
         db.closeDB();
+    }
+
+    private static boolean gunKontrol(String gunler) {
+        Calendar calendar = Calendar.getInstance();
+        int weekday = calendar.get(Calendar.DAY_OF_WEEK);
+        //PAZAR 1, pzt 2, sali 3, çars 4, pers 5, cuma 6, cmt 7
+        //bizim vt'de Pzrt,..., Pzr
+        if (weekday == 1) return gunler.substring(6, 7).equals("1");
+        else if (weekday == 2) return gunler.substring(0, 1).equals("1");
+        else if (weekday == 3) return gunler.substring(1, 2).equals("1");
+        else if (weekday == 4) return gunler.substring(2, 3).equals("1");
+        else if (weekday == 5) return gunler.substring(3, 4).equals("1");
+        else if (weekday == 6) return gunler.substring(4, 5).equals("1");
+        else if (weekday == 7) return gunler.substring(5, 6).equals("1");
+        else return false;
     }
 
     private int dakikaGetir(String zaman) {
@@ -260,77 +189,6 @@ public class alarmServis extends Service {
             return sure;
     }
 
-    private void resetAlarm() {
-        //getting the alarm manager
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        //creating a new intent specifying the broadcast receiver
-        Intent intent = new Intent(this, MyAlarm.class);
-
-        //creating a pending intent using the intent
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,
-                REQUEST_CODE,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        // Cancel alarms
-        try {
-            if (alarmManager != null) {
-                alarmManager.cancel(pendingIntent);
-            }
-        } catch (Exception e) {
-            Log.e("alarm ", "AlarmManager not canceled!" + e.toString());
-        }
-    }
-
-    private void setAlarm(long zilTime) {
-        //getting the alarm manager
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        //creating a new intent specifying the broadcast receiver
-        Intent intent = new Intent(this, MyAlarm.class);
-
-        //creating a pending intent using the intent
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,
-                REQUEST_CODE,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-
-        assert alarmManager != null;
-
-        //RTC pil tasarrufu seçeneği?
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP,
-                    zilTime,
-                    pendingIntent);
-        } else {
-            alarmManager.set(AlarmManager.RTC_WAKEUP,
-                    zilTime,
-                    pendingIntent);
-        }
-    }
-
-    private void alarmlariAyarla() {
-
-        for (int i = 0; i < zillers.size(); i++) {
-            int saat = saatGetir(zillers.get(i).getZaman());
-            int dakika = dakikaGetir(zillers.get(i).getZaman());
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH),
-                    saat,
-                    dakika,
-                    0);
-
-            //eski alarmları kapat
-            resetAlarm();
-            setAlarm(calendar.getTimeInMillis());
-            //zil adı lazım
-            globalDegerler.gelecekAlarmAdi = zillers.get(i).getName();
-        }
-    }
-
     private void akilliZilBilgisi() {
 
         if (zillers.size() == 0) {
@@ -384,11 +242,74 @@ public class alarmServis extends Service {
             globalDegerler.hizmetBildirimiMesaji = getResources().getString(R.string.zilYok);
     }
 
+    private Notification getMyActivityNotification(String text) {
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        pendingIntent = PendingIntent.getActivity(this,
+                0, notificationIntent, 0);
+
+        Notification mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle(text) //üst kalın başlık
+                //.setContentText(text)
+                .setOnlyAlertOnce(true) //1 kere açılır
+                .setOngoing(true)
+                .setSmallIcon(R.drawable.bell)
+                .setColor(ContextCompat.getColor(this, R.color.arkaplan))
+                .setContentIntent(pendingIntent).getNotification();
+        return mBuilder;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        handler.postDelayed(runnable, 2000);
+
+        globalDegerler.hizmetBildirimiMesaji = "..";
+        bilgileriGuncelle(globalDegerler.hizmetBildirimiMesaji);
+
+        //do heavy work on a background thread
+        return START_NOT_STICKY;
+    }
+
+    public void bilgileriGuncelle(String mesaj) {
+        pref = getApplicationContext().getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
+
+        RemoteViews view = new RemoteViews(getPackageName(), R.layout.zaman_app_widget);
+
+        view.setInt(R.id.rootBG, "setBackgroundColor",
+                ColorUtils.setAlphaComponent(Color.argb(
+                        pref.getInt("alpha", 50)
+                        , pref.getInt("red", 61)
+                        , pref.getInt("green", 90)
+                        , pref.getInt("blue", 254)),
+                        pref.getInt("alpha", 50)));
+
+        switch (pref.getInt("fontSize", 2)) {
+            case 1:
+                view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 14);
+                break;
+            case 2:
+                view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 16);
+                break;
+            case 3:
+                view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 18);
+                break;
+            case 4:
+                view.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 20);
+                break;
+        }
+
+        view.setTextViewText(R.id.teneffustextView, mesaj);
+
+        ComponentName theWidget = new ComponentName(this, zamanAppWidget.class);
+        AppWidgetManager manager = AppWidgetManager.getInstance(this);
+        manager.updateAppWidget(theWidget, view);
+
+        startForeground(NOTIF_ID, getMyActivityNotification(mesaj));
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         handler.removeCallbacksAndMessages(null); //stop timer
-        resetAlarm(); //alarmları durdur
         stopSelf(); //servisi durdur
     }
 

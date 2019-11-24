@@ -19,6 +19,11 @@ public class MyAlarm extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (!intent.getExtras().getString("alarm").equals("var")) {
+            Log.w("alarm intent", intent.getExtras().getString("alarm"));
+            return;
+        }
+
         pref = context.getApplicationContext().getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
 
         if (!pref.getBoolean("hizmetDurumu", false)) {
@@ -28,7 +33,7 @@ public class MyAlarm extends BroadcastReceiver {
         if (pref.getBoolean("titresim", false)) {
             //titreşim desteği
             Vibrator v = (Vibrator) context.getSystemService(VIBRATOR_SERVICE);
-            long[] pattern = {0, 100, 50}; //, 200, 50, 200, 50, 200, 50 //3 kere zzıt
+            long[] pattern = {0, 200, 50, 200, 50}; //3 kere zzıt
 
             if (v.hasVibrator())
                 v.vibrate(pattern, -1);
@@ -56,6 +61,6 @@ public class MyAlarm extends BroadcastReceiver {
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
 
-        Log.w("alarm ", globalDegerler.gelecekAlarmAdi + " " + formatter.format(date));
+        Log.w("alarm ", "Zaman: " + formatter.format(date));
     }
 }
