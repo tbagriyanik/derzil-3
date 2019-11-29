@@ -37,5 +37,7 @@
     <string name="minutes">minute(s)</string>
     <string name="minutesLeft">minute(s) left</string>
     <string name="toFinish">finishing in</string>
+    <string name="importTxt">Import from file</string>
+    <string name="exportTxt">Export to file</string>
 
 </resources>

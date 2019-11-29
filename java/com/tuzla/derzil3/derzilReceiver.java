@@ -30,5 +30,6 @@ public class derzilReceiver extends BroadcastReceiver {
                 Toast.makeText(context, context.getResources().getString(R.string.arkaplanHizmetiNo), Toast.LENGTH_SHORT).show();
             }
         }
+
     }
 }

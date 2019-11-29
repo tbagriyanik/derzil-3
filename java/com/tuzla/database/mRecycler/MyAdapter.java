@@ -3,7 +3,10 @@ package com.tuzla.database.mRecycler;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +21,16 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tuzla.database.CSVWriter;
+import com.tuzla.database.mDataBase.Constants;
 import com.tuzla.database.mDataBase.DBAdapter;
+import com.tuzla.database.mDataBase.DBHelper;
 import com.tuzla.database.mDataObject.Ziller;
 import com.tuzla.database.swipeActivity;
 import com.tuzla.derzil3.R;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,7 +46,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
     private TextView saatDakikaTextView;
     private CheckBox hafta1, hafta2, hafta3, hafta4, hafta5, hafta6, hafta7;
     private Switch switchActive;
-    private Button saveBtn, duplicateBtn;
+    private Button saveBtn, duplicateBtn, exportBtn;
     private Dialog d;
 
     public MyAdapter(Context c, ArrayList<Ziller> zillers) {
@@ -298,7 +306,47 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
             }
         });
         duplicateBtn.setVisibility(View.VISIBLE);
+        exportBtn = d.findViewById(R.id.exportBtn);
+        exportBtn.setVisibility(View.VISIBLE);
+        exportBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //değerleri dosyaya veritabanından at
+                File exportDir = new File(Environment.getExternalStorageDirectory(), "");
+                if (!exportDir.exists()) {
+                    exportDir.mkdirs();
+                }
 
+                File file = new File(exportDir, "derZil.csv");
+                try {
+                    file.createNewFile();
+                    CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
+
+                    SQLiteDatabase db;
+                    DBHelper helper = new DBHelper(c);
+                    String[] columns = {Constants.ROW_ID, Constants.NAME, Constants.ZAMAN, Constants.GUNLER, Constants.AKTIF};
+                    db = helper.getWritableDatabase();
+
+                    Cursor curCSV = db.query(Constants.TB_NAME, columns, null,
+                            null, null, null, null);
+                    csvWrite.writeNext(curCSV.getColumnNames());
+                    while (curCSV.moveToNext()) {
+                        //Which column you want to export
+                        String arrStr[] = new String[curCSV.getColumnCount()];
+                        for (int i = 0; i < curCSV.getColumnCount() - 1; i++)
+                            arrStr[i] = curCSV.getString(i);
+                        csvWrite.writeNext(arrStr);
+                    }
+                    csvWrite.close();
+                    curCSV.close();
+                    Toast.makeText(c, c.getResources().getString(R.string.Success),
+                            Toast.LENGTH_SHORT).show();
+                } catch (Exception sqlEx) {
+                    Toast.makeText(c, c.getResources().getString(R.string.Error) + "\n" + sqlEx,
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         //SHOW DIALOG
         d.show();
     }

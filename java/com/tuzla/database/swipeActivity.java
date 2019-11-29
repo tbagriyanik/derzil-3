@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +33,9 @@ import com.tuzla.database.mSwiper.SwipeHelper;
 import com.tuzla.derzil3.MainActivity;
 import com.tuzla.derzil3.R;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,6 +54,7 @@ public class swipeActivity extends AppCompatActivity {
     CheckBox hafta1, hafta2, hafta3, hafta4, hafta5, hafta6, hafta7;
     Switch switchActive;
     Button saveBtn;
+    Button importBtn;
     Dialog d;
     private SwipeRefreshLayout swipeContainer;
 
@@ -246,7 +251,50 @@ public class swipeActivity extends AppCompatActivity {
                 getZiller();
             }
         });
+        importBtn = d.findViewById(R.id.importBtn);
+        importBtn.setVisibility(View.VISIBLE);
+        importBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //yeni değerleri dosyadan veritabanına yolla
+                CSVReader csvReader = null;
+                try {
+                    csvReader = new CSVReader(new FileReader(
+                            Environment.getExternalStorageDirectory() + "/derZil.csv"));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    return;
+                }
+                String[] nextLine = new String[0];
+                int count = 0;
+                StringBuilder columns = new StringBuilder();
+                StringBuilder value = new StringBuilder();
 
+                while (true) {
+                    try {
+                        assert csvReader != null;
+                        if ((nextLine = csvReader.readNext()) == null) break;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    // nextLine[] is an array of values from the line
+                    for (int i = 0; i < nextLine.length - 1; i++) {
+                        if (count == 0) {
+                            if (i == nextLine.length - 2)
+                                columns.append(nextLine[i]);
+                            else
+                                columns.append(nextLine[i]).append(",");
+                        } else {
+                            if (i == nextLine.length - 2)
+                                value.append("'").append(nextLine[i]).append("'");
+                            else
+                                value.append("'").append(nextLine[i]).append("',");
+                        }
+                        Log.d("import", columns + "-------" + value);
+                    }
+                }
+            }
+        });
         //SHOW DIALOG
         d.show();
     }
@@ -298,9 +346,9 @@ public class swipeActivity extends AppCompatActivity {
                 return 0;
             }
 
-            Log.wtf("sure1 ", Integer.toString(sure1));
-            Log.wtf("sure2 ", Integer.toString(sure2));
-            Log.wtf("---", "---");
+//            Log.wtf("sure1 ", Integer.toString(sure1));
+//            Log.wtf("sure2 ", Integer.toString(sure2));
+//            Log.wtf("---", "---");
 
             if (sure1 > sure2)
                 return 1;

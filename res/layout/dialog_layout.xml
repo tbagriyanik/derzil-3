@@ -219,6 +219,31 @@
                 android:textAllCaps="false"
                 android:visibility="gone" />
 
+            <Button
+                android:id="@+id/importBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="-10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="@string/importTxt"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/exportBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="-10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="@string/exportTxt"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>

@@ -10,9 +10,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -30,19 +30,21 @@ import com.tuzla.database.mDataBase.DBAdapter;
 import com.tuzla.database.mDataObject.Ziller;
 import com.tuzla.database.swipeActivity;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
-
     Handler handler = new Handler();
     Timer timer;
     Switch m1;
     SharedPreferences pref;
 
-    public static final int REQUEST_CODE = 101;
+    private static final String sTagAlarms = ":alarms";
     static DBAdapter db;
     static ArrayList<Ziller> zillers = new ArrayList<>();
 
@@ -137,14 +139,14 @@ public class MainActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         timer.cancel();
-        resetAlarm(); //alarmları durdur
+        resetAlarms(); //alarmları durdur
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getZiller(); //veritabanından listeyi al
-        alarmlariAyarla(); //alarmları oluştur
+//        getZiller(); //veritabanından listeyi al
+//        alarmlariAyarla(); //alarmları oluştur
     }
 
     private static boolean gunKontrol(String gunler) {
@@ -274,26 +276,78 @@ public class MainActivity extends AppCompatActivity {
             return sure;
     }
 
-    private void resetAlarm() {
-        //getting the alarm manager
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+    private static List<Integer> getAlarmIds(Context context) {
+        List<Integer> ids = new ArrayList<>();
+        try {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            JSONArray jsonArray2 = new JSONArray(
+                    prefs.getString(context.getPackageName() + sTagAlarms,
+                            "[]"));
 
-        //creating a new intent specifying the broadcast receiver
+            for (int i = 0; i < jsonArray2.length(); i++) {
+                ids.add(jsonArray2.getInt(i));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ids;
+    }
+
+    private static void saveIdsInPreferences(Context context, List<Integer> lstIds) {
+        JSONArray jsonArray = new JSONArray();
+        for (Integer idAlarm : lstIds) {
+            jsonArray.put(idAlarm);
+        }
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(context.getPackageName() + sTagAlarms,
+                jsonArray.toString());
+
+        editor.apply();
+    }
+
+    public static void removeAlarmId(Context context, int id) {
+        List<Integer> idsAlarms = getAlarmIds(context);
+        for (int i = 0; i < idsAlarms.size(); i++) {
+            if (idsAlarms.get(i) == id)
+                idsAlarms.remove(i);
+        }
+        saveIdsInPreferences(context, idsAlarms);
+    }
+
+    private static void saveAlarmId(Context context, int id) {
+        List<Integer> idsAlarms = getAlarmIds(context);
+        if (idsAlarms.contains(id)) return;
+        idsAlarms.add(id);
+        saveIdsInPreferences(context, idsAlarms);
+    }
+
+    private void resetAlarms() {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, MyAlarm.class);
 
-        //creating a pending intent using the intent
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,
-                REQUEST_CODE,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        // Cancel alarms
         try {
             if (alarmManager != null) {
-                alarmManager.cancel(pendingIntent);
+                for (int idAlarm : getAlarmIds(this)) {
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(this,
+                            idAlarm,
+                            intent,
+                            PendingIntent.FLAG_CANCEL_CURRENT);
+                    alarmManager.cancel(pendingIntent);
+                    pendingIntent.cancel();
+                    removeAlarmId(this, idAlarm);
+                }
             }
         } catch (Exception e) {
             Log.e("alarm ", "AlarmManager not canceled!" + e.toString());
         }
+    }
+
+    public static boolean hasAlarm(Context context, Intent intent, int notificationId) {
+        return PendingIntent.getBroadcast(context, notificationId, intent, PendingIntent.FLAG_NO_CREATE) != null;
     }
 
     private void setAlarm(long zilTime) {
@@ -302,32 +356,29 @@ public class MainActivity extends AppCompatActivity {
 
         //creating a new intent specifying the broadcast receiver
         Intent intent = new Intent(this, MyAlarm.class);
-        intent.putExtra("alarm","var");
+        intent.putExtra("alarm", "var");
 
+        int ticks = (int) System.currentTimeMillis();
         //creating a pending intent using the intent
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this,
-                REQUEST_CODE,
+                ticks,
                 intent,
-                PendingIntent.FLAG_ONE_SHOT); //this PendingIntent can be used only once
+                PendingIntent.FLAG_CANCEL_CURRENT);
 
         assert alarmManager != null;
 
-        //RTC pil tasarrufu seçeneği?
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP,
-                    zilTime,
-                    pendingIntent);
-        } else {
-            alarmManager.set(AlarmManager.RTC_WAKEUP,
-                    zilTime,
-                    pendingIntent);
-        }
+        saveAlarmId(this, ticks);
+
+        //RTC_? pil tasarrufu seçeneği
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
+                zilTime,
+                pendingIntent);
     }
 
-    private void alarmlariAyarla() {
+    public void alarmlariAyarla() {
 
         for (int i = 0; i < zillers.size(); i++) {
-            //tüm zilleri ayarlar, eski olması önemli değil
+            //tüm yeni zilleri ayarlar
 
             int saat = saatGetir(zillers.get(i).getZaman());
             int dakika = dakikaGetir(zillers.get(i).getZaman());
@@ -342,12 +393,23 @@ public class MainActivity extends AppCompatActivity {
                     0);
 
             //eski alarmları kapat
-            resetAlarm();
-            setAlarm(calendar.getTimeInMillis());               //teneffüs başı
-            if (sure > 0)
-                setAlarm(calendar.getTimeInMillis() + sure * 1000); //teneffüs sonu
-            //zil adı lazım, ama bildirimde yok ki
-            //globalDegerler.gelecekAlarmAdi = zillers.get(i).getName();
+            resetAlarms();
+
+            //eğer şu an alarm öncesinde ise
+            if (Calendar.getInstance().before(calendar))
+                setAlarm(calendar.getTimeInMillis());               //teneffüs başı
+
+            //teneffüs bitişi
+            if (sure > 0) {
+                calendar.set(calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH),
+                        saat,
+                        dakika + sure,
+                        0);
+                if (Calendar.getInstance().before(calendar))
+                    setAlarm(calendar.getTimeInMillis()); //teneffüs sonu
+            }
         }
     }
 

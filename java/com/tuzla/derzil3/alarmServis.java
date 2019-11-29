@@ -98,7 +98,7 @@ public class alarmServis extends Service {
                 zillers.add(p);
                 say++;
 
-                // Log.e("alarm " + say,  name + " " + saat + ":" + dakika);
+                //Log.e("alarm " + say, name + " " + saat + ":" + dakika);
             }
         }
 

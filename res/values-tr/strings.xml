@@ -38,4 +38,6 @@
     <string name="minutesLeft">dakika kaldı</string>
     <string name="toFinish">bitmesine</string>
     <string name="minutes">dakika</string>
+    <string name="importTxt">Dosyadan Al</string>
+    <string name="exportTxt">Dosyaya Aktar</string>
 </resources>
