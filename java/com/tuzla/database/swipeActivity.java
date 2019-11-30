@@ -4,10 +4,11 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -26,13 +27,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.tuzla.database.mDataBase.Constants;
 import com.tuzla.database.mDataBase.DBAdapter;
+import com.tuzla.database.mDataBase.DBHelper;
 import com.tuzla.database.mDataObject.Ziller;
 import com.tuzla.database.mRecycler.MyAdapter;
 import com.tuzla.database.mSwiper.SwipeHelper;
 import com.tuzla.derzil3.MainActivity;
 import com.tuzla.derzil3.R;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -258,17 +262,30 @@ public class swipeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //yeni değerleri dosyadan veritabanına yolla
                 CSVReader csvReader = null;
+                File exportDir = new File(Environment.getExternalStorageDirectory(), "/derZilData/derZil.csv");
+                if (!exportDir.exists()) {
+                    Toast.makeText(swipeActivity.this,
+                            Environment.getExternalStorageDirectory() + "/derZilData/derZil.csv \nNot found!"
+                            , Toast.LENGTH_SHORT).show();
+                    return; //no data exist
+                }
+
                 try {
                     csvReader = new CSVReader(new FileReader(
-                            Environment.getExternalStorageDirectory() + "/derZil.csv"));
+                            Environment.getExternalStorageDirectory() + "/derZilData/derZil.csv"));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
+                    Toast.makeText(swipeActivity.this,
+                            getResources().getString(R.string.Error) + "\n" + e.toString()
+                            , Toast.LENGTH_SHORT).show();
                     return;
                 }
                 String[] nextLine = new String[0];
                 int count = 0;
                 StringBuilder columns = new StringBuilder();
-                StringBuilder value = new StringBuilder();
+
+                DBHelper helper = new DBHelper(swipeActivity.this);
+                SQLiteDatabase db = helper.getWritableDatabase();
 
                 while (true) {
                     try {
@@ -277,22 +294,36 @@ public class swipeActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
+                    String values = new String();
                     // nextLine[] is an array of values from the line
-                    for (int i = 0; i < nextLine.length - 1; i++) {
-                        if (count == 0) {
-                            if (i == nextLine.length - 2)
-                                columns.append(nextLine[i]);
+                    if (count > 0) values += " (";
+                    //i=0 olunca id dir
+                    for (int i = 0; i <= nextLine.length - 1; i++) {
+                        if (count > 0) {
+                            //kolon satırı atlandı count==0
+                            if (i == 0)
+                                values += "null , ";
+                            else if (i < nextLine.length - 1)
+                                values += DatabaseUtils.sqlEscapeString(nextLine[i]) + (", ");
                             else
-                                columns.append(nextLine[i]).append(",");
-                        } else {
-                            if (i == nextLine.length - 2)
-                                value.append("'").append(nextLine[i]).append("'");
-                            else
-                                value.append("'").append(nextLine[i]).append("',");
+                                values += DatabaseUtils.sqlEscapeString(nextLine[i]) ;
                         }
-                        Log.d("import", columns + "-------" + value);
-                    }
+                    }//one line each
+
+                    if (count > 0) values += (")");
+
+                    if (values.length() != 0)
+                        db.execSQL("Insert INTO " + Constants.TB_NAME + "  values " +
+                                values.toString());
+
+                    count++;
                 }
+
+                db.close();
+
+                Toast.makeText(swipeActivity.this, getResources().getString(R.string.Success),
+                        Toast.LENGTH_SHORT).show();
             }
         });
         //SHOW DIALOG

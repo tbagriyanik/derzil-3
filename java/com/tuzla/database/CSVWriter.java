@@ -119,9 +119,7 @@ public class CSVWriter {
      * @throws IOException if bad things happen
      */
     public void flush() throws IOException {
-
         pw.flush();
-
     }
 
     /**
@@ -133,5 +131,4 @@ public class CSVWriter {
         pw.flush();
         pw.close();
     }
-
 }

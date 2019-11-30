@@ -312,7 +312,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
             @Override
             public void onClick(View v) {
                 //değerleri dosyaya veritabanından at
-                File exportDir = new File(Environment.getExternalStorageDirectory(), "");
+                File exportDir = new File(Environment.getExternalStorageDirectory(), "derZilData");
                 if (!exportDir.exists()) {
                     exportDir.mkdirs();
                 }
@@ -324,7 +324,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
 
                     SQLiteDatabase db;
                     DBHelper helper = new DBHelper(c);
-                    String[] columns = {Constants.ROW_ID, Constants.NAME, Constants.ZAMAN, Constants.GUNLER, Constants.AKTIF};
+                    String[] columns = {Constants.ROW_ID,
+                            Constants.NAME,
+                            Constants.ZAMAN,
+                            Constants.GUNLER,
+                            Constants.AKTIF};
                     db = helper.getWritableDatabase();
 
                     Cursor curCSV = db.query(Constants.TB_NAME, columns, null,
@@ -333,8 +337,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
                     while (curCSV.moveToNext()) {
                         //Which column you want to export
                         String arrStr[] = new String[curCSV.getColumnCount()];
-                        for (int i = 0; i < curCSV.getColumnCount() - 1; i++)
-                            arrStr[i] = curCSV.getString(i);
+                        for (int i = 0; i <= curCSV.getColumnCount() - 1; i++) {
+                            if (curCSV.getString(i).length() == 0)
+                                arrStr[i] = "0";
+                            else {
+                                arrStr[i] = curCSV.getString(i).replace("'", "`");
+                            }
+                        }
                         csvWrite.writeNext(arrStr);
                     }
                     csvWrite.close();
