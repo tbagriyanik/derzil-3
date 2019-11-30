@@ -13,8 +13,15 @@ Just need Android Studio (3.5.2 for now)
 
 ## Running the tests
 
-Supporting notification, vibration, foreground service, local SQLite database.
-Turkish and English languages are available. 
+- Bell can be on/off (selecting another sound will be later)
+- Vibration can be on/off
+- Android notification is available on lock screen
+- No limit for adding bells
+- Bells can be back-up as a CSV file (need Storage permission)
+- Battery consumption is low
+- You can add widget to your main screen
+- Widget has properties like color, transparency, font size, width, height
+- Turkish and English languages 
 
 ### And coding style tests
 
