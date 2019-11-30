@@ -20,7 +20,7 @@ public class zamanAppWidget extends AppWidgetProvider {
 
         //düğmeye basınca ana program açılır, ilk mesaj yüklenir
         Intent intent = new Intent(context, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent,0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.zaman_app_widget);
         views.setOnClickPendingIntent(R.id.ayarbutton, pendingIntent);
 

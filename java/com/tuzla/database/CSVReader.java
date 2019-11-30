@@ -9,28 +9,25 @@ import java.util.List;
 
 public class CSVReader {
 
+    /**
+     * The default separator to use if none is supplied to the constructor.
+     */
+    public static final char DEFAULT_SEPARATOR = ',';
+    /**
+     * The default quote character to use if none is supplied to the
+     * constructor.
+     */
+    public static final char DEFAULT_QUOTE_CHARACTER = '"';
+    /**
+     * The default line to start reading.
+     */
+    public static final int DEFAULT_SKIP_LINES = 0;
     private BufferedReader br;
     private boolean hasNext = true;
     private char separator;
     private char quotechar;
     private int skipLines;
     private boolean linesSkiped;
-
-    /**
-     * The default separator to use if none is supplied to the constructor.
-     */
-    public static final char DEFAULT_SEPARATOR = ',';
-
-    /**
-     * The default quote character to use if none is supplied to the
-     * constructor.
-     */
-    public static final char DEFAULT_QUOTE_CHARACTER = '"';
-
-    /**
-     * The default line to start reading.
-     */
-    public static final int DEFAULT_SKIP_LINES = 0;
 
     /**
      * Constructs CSVReader using a comma for the separator.

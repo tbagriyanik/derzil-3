@@ -312,7 +312,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
             @Override
             public void onClick(View v) {
                 //değerleri dosyaya veritabanından at
-                File exportDir = new File(Environment.getExternalStorageDirectory(), "derZilData");
+                File exportDir = new File(Environment.getExternalStorageDirectory() + "/derZilData", "");
                 if (!exportDir.exists()) {
                     exportDir.mkdirs();
                 }

@@ -255,6 +255,7 @@ public class swipeActivity extends AppCompatActivity {
                 getZiller();
             }
         });
+
         importBtn = d.findViewById(R.id.importBtn);
         importBtn.setVisibility(View.VISIBLE);
         importBtn.setOnClickListener(new View.OnClickListener() {
@@ -307,7 +308,7 @@ public class swipeActivity extends AppCompatActivity {
                             else if (i < nextLine.length - 1)
                                 values += DatabaseUtils.sqlEscapeString(nextLine[i]) + (", ");
                             else
-                                values += DatabaseUtils.sqlEscapeString(nextLine[i]) ;
+                                values += DatabaseUtils.sqlEscapeString(nextLine[i]);
                         }
                     }//one line each
 

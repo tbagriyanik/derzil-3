@@ -1,5 +1,6 @@
 package com.tuzla.derzil3;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -12,6 +13,8 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
 
@@ -23,21 +26,22 @@ import androidx.core.graphics.ColorUtils;
 import com.tuzla.database.mDataBase.DBAdapter;
 import com.tuzla.database.mDataObject.Ziller;
 
+import org.json.JSONArray;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static com.tuzla.derzil3.App.CHANNEL_ID;
 
 public class alarmServis extends Service {
     private static final int NOTIF_ID = 1;
-
-    PendingIntent pendingIntent = null;
-    SharedPreferences pref;
-
+    private static final String sTagAlarms = ":alarms";
     static DBAdapter db;
     static ArrayList<Ziller> zillers = new ArrayList<>();
-
+    PendingIntent pendingIntent = null;
+    SharedPreferences pref;
     private Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
 
@@ -52,6 +56,74 @@ public class alarmServis extends Service {
             handler.postDelayed(this, 3000); //3 saniye refresh 60*1000 olacak?
         }
     };
+
+    private static boolean gunKontrol(String gunler) {
+        Calendar calendar = Calendar.getInstance();
+        int weekday = calendar.get(Calendar.DAY_OF_WEEK);
+        //PAZAR 1, pzt 2, sali 3, çars 4, pers 5, cuma 6, cmt 7
+        //bizim vt'de Pzrt,..., Pzr
+        if (weekday == 1) return gunler.substring(6, 7).equals("1");
+        else if (weekday == 2) return gunler.substring(0, 1).equals("1");
+        else if (weekday == 3) return gunler.substring(1, 2).equals("1");
+        else if (weekday == 4) return gunler.substring(2, 3).equals("1");
+        else if (weekday == 5) return gunler.substring(3, 4).equals("1");
+        else if (weekday == 6) return gunler.substring(4, 5).equals("1");
+        else if (weekday == 7) return gunler.substring(5, 6).equals("1");
+        else return false;
+    }
+
+    public static boolean hasAlarm(Context context, Intent intent, int notificationId) {
+        return PendingIntent.getBroadcast(context, notificationId, intent, PendingIntent.FLAG_NO_CREATE) != null;
+    }
+
+    private static List<Integer> getAlarmIds(Context context) {
+        List<Integer> ids = new ArrayList<>();
+        try {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            JSONArray jsonArray2 = new JSONArray(
+                    prefs.getString(context.getPackageName() + sTagAlarms,
+                            "[]"));
+
+            for (int i = 0; i < jsonArray2.length(); i++) {
+                ids.add(jsonArray2.getInt(i));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ids;
+    }
+
+    private static void saveIdsInPreferences(Context context, List<Integer> lstIds) {
+        JSONArray jsonArray = new JSONArray();
+        for (Integer idAlarm : lstIds) {
+            jsonArray.put(idAlarm);
+        }
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(context.getPackageName() + sTagAlarms,
+                jsonArray.toString());
+
+        editor.apply();
+    }
+
+    public static void removeAlarmId(Context context, int id) {
+        List<Integer> idsAlarms = getAlarmIds(context);
+        for (int i = 0; i < idsAlarms.size(); i++) {
+            if (idsAlarms.get(i) == id)
+                idsAlarms.remove(i);
+        }
+        saveIdsInPreferences(context, idsAlarms);
+    }
+
+    private static void saveAlarmId(Context context, int id) {
+        List<Integer> idsAlarms = getAlarmIds(context);
+        if (idsAlarms.contains(id)) return;
+        idsAlarms.add(id);
+        saveIdsInPreferences(context, idsAlarms);
+    }
 
     @Override
     public void onCreate() {
@@ -103,21 +175,6 @@ public class alarmServis extends Service {
         }
 
         db.closeDB();
-    }
-
-    private static boolean gunKontrol(String gunler) {
-        Calendar calendar = Calendar.getInstance();
-        int weekday = calendar.get(Calendar.DAY_OF_WEEK);
-        //PAZAR 1, pzt 2, sali 3, çars 4, pers 5, cuma 6, cmt 7
-        //bizim vt'de Pzrt,..., Pzr
-        if (weekday == 1) return gunler.substring(6, 7).equals("1");
-        else if (weekday == 2) return gunler.substring(0, 1).equals("1");
-        else if (weekday == 3) return gunler.substring(1, 2).equals("1");
-        else if (weekday == 4) return gunler.substring(2, 3).equals("1");
-        else if (weekday == 5) return gunler.substring(3, 4).equals("1");
-        else if (weekday == 6) return gunler.substring(4, 5).equals("1");
-        else if (weekday == 7) return gunler.substring(5, 6).equals("1");
-        else return false;
     }
 
     private int dakikaGetir(String zaman) {
@@ -189,6 +246,50 @@ public class alarmServis extends Service {
             return sure;
     }
 
+    private void resetAlarms() {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getBaseContext(), MyAlarm.class);
+
+        try {
+            if (alarmManager != null) {
+                for (int idAlarm : getAlarmIds(getBaseContext())) {
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(),
+                            idAlarm,
+                            intent,
+                            PendingIntent.FLAG_CANCEL_CURRENT);
+                    alarmManager.cancel(pendingIntent);
+                    pendingIntent.cancel();
+                    removeAlarmId(getBaseContext(), idAlarm);
+                }
+            }
+        } catch (Exception e) {
+            Log.e("alarm ", "AlarmManager not canceled!" + e.toString());
+        }
+    }
+
+    private void setAlarm(long zilTime) {
+        //getting the alarm manager
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        //creating a new intent specifying the broadcast receiver
+        Intent intent = new Intent(getBaseContext(), MyAlarm.class);
+
+        int ticks = (int) System.currentTimeMillis();
+        //creating a pending intent using the intent
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(),
+                ticks,
+                intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        saveAlarmId(getBaseContext(), ticks);
+
+        //RTC_? pil tasarrufu seçeneği
+        assert alarmManager != null;
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
+                zilTime,
+                pendingIntent);
+    }
+
     private void akilliZilBilgisi() {
 
         if (zillers.size() == 0) {
@@ -204,6 +305,33 @@ public class alarmServis extends Service {
             int saat = saatGetir(zillers.get(i).getZaman());
             int dakika = dakikaGetir(zillers.get(i).getZaman());
             int sure = sureGetir(zillers.get(i).getZaman());
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH),
+                    saat,
+                    dakika,
+                    0);
+
+            //eski alarmları kapat
+            resetAlarms();
+
+            //eğer şu an alarm öncesinde ise
+            if (Calendar.getInstance().before(calendar))
+                setAlarm(calendar.getTimeInMillis());               //teneffüs başı
+
+            //teneffüs bitişi
+            if (sure > 0) {
+                calendar.set(calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH),
+                        saat,
+                        dakika + sure,
+                        0);
+                if (Calendar.getInstance().before(calendar))
+                    setAlarm(calendar.getTimeInMillis()); //teneffüs sonu
+            }
 
             Calendar currentTime = Calendar.getInstance();
             long min1 = currentTime.get(Calendar.HOUR_OF_DAY) * 60 + currentTime.get(Calendar.MINUTE);

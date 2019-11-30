@@ -6,23 +6,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
-import android.util.Log;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 
 public class MyAlarm extends BroadcastReceiver {
-
     SharedPreferences pref;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (!intent.getExtras().getString("alarm").equals("var")) {
-            Log.w("alarm intent", intent.getExtras().getString("alarm"));
+
+        final Calendar c = Calendar.getInstance();
+        int seconds = c.get(Calendar.SECOND);
+
+        if (seconds > 3) //dakikanın başında sadece alarm olabilir
             return;
-        }
 
         pref = context.getApplicationContext().getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
 
@@ -58,9 +57,8 @@ public class MyAlarm extends BroadcastReceiver {
             mp.start();
         }
 
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-        Date date = new Date(System.currentTimeMillis());
-
-        Log.w("alarm ", "Zaman: " + formatter.format(date));
+//        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+//        Date date = new Date(System.currentTimeMillis());
+//        Log.w("alarm ", "Zaman: " + formatter.format(date));
     }
 }
