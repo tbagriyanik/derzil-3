@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         timer = new Timer();
-        timer.schedule(timerTask, 100, 1000);//ana program refresh
+        timer.schedule(timerTask, 100, 1500);//ana program refresh
     }
 
     @Override

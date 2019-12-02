@@ -53,7 +53,7 @@ public class alarmServis extends Service {
             //widget ve notification güncelleme
             bilgileriGuncelle(globalDegerler.hizmetBildirimiMesaji);
 
-            handler.postDelayed(this, 3000); //3 saniye refresh 60*1000 olacak?
+            handler.postDelayed(this, 1500); //1,5 saniye refresh 60*1000 olacak?
         }
     };
 
