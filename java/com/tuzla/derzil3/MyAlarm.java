@@ -6,21 +6,30 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
+import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 
 public class MyAlarm extends BroadcastReceiver {
     SharedPreferences pref;
+    Calendar oldTime = null;
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        final Calendar c = Calendar.getInstance();
-        int seconds = c.get(Calendar.SECOND);
-
-        if (seconds > 3) //dakikanın başında sadece alarm olabilir
+        Calendar activeTime = Calendar.getInstance();
+        int hour = activeTime.get(Calendar.HOUR_OF_DAY);
+        int minu = activeTime.get(Calendar.MINUTE);
+        int seconds = activeTime.get(Calendar.SECOND);
+        if (seconds > 3 ||
+                (oldTime != null &&
+                        hour == oldTime.get(Calendar.HOUR_OF_DAY) &&
+                        minu == oldTime.get(Calendar.MINUTE)))
+            //dakikanın başında sadece alarm olabilir, eski alarm ile aynı olamaz
             return;
 
         pref = context.getApplicationContext().getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
@@ -47,18 +56,16 @@ public class MyAlarm extends BroadcastReceiver {
 //            }
 //            Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
 //            ringtone.play();
-//MP3 seç demektense üstteki gibi olsa iyi, şimdilik çok uzunlar
+
+            //MP3 seç demektense üstteki gibi olsa iyi, şimdilik çok uzunlar
             MediaPlayer mp;
             mp = MediaPlayer.create(context, R.raw.zil2);
-            if (mp.isPlaying()) {
-                mp.stop();
-                mp.release();
-            }
             mp.start();
         }
 
-//        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-//        Date date = new Date(System.currentTimeMillis());
-//        Log.w("alarm ", "Zaman: " + formatter.format(date));
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        Log.w("alarm BİTTİ", "Zaman: " + formatter.format(date));
+        oldTime = Calendar.getInstance();
     }
 }
