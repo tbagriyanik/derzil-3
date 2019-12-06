@@ -17,6 +17,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         try {
             db.execSQL(Constants.CREATE_TB);
+            db.execSQL(Constants.INSERT_SAMPLE);
         } catch (SQLException e) {
             e.printStackTrace();
         }

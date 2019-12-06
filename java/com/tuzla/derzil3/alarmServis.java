@@ -26,20 +26,24 @@ import com.tuzla.database.mDataBase.DBAdapter;
 import com.tuzla.database.mDataObject.Ziller;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import static com.tuzla.derzil3.App.CHANNEL_ID;
+import static com.tuzla.derzil3.globalDegerler.GLOBAL_hizmetBildirimiMesaji;
+import static com.tuzla.derzil3.globalDegerler.GLOBAL_sonGun;
+import static com.tuzla.derzil3.globalDegerler.GLOBAL_tazeleme;
 
 public class alarmServis extends Service {
     private static final int NOTIF_ID = 1;
-    private static final String sTagAlarms = ":alarms";
     static DBAdapter db;
 
     static ArrayList<Ziller> zillers = new ArrayList<>();
+
     PendingIntent pendingIntent = null;
     ArrayList<PendingIntent> pendingIntentArrayList = new ArrayList<>();
-    AlarmManager alarmManager;
 
     SharedPreferences pref;
 
@@ -51,10 +55,9 @@ public class alarmServis extends Service {
 
             getZiller(); //veritabanından listeyi al
             akilliZilBilgisi(); //alarm bilgilerine göre
-            //widget ve notification güncelleme
-            bilgileriGuncelle(globalDegerler.hizmetBildirimiMesaji);
+            bilgileriGuncelle(GLOBAL_hizmetBildirimiMesaji);//widget ve notification güncelleme
 
-            handler.postDelayed(this, 1500); //1,5 saniye refresh 60*1000 olacak?
+            handler.postDelayed(this, GLOBAL_tazeleme); //1.5 saniye refresh
         }
     };
 
@@ -196,56 +199,49 @@ public class alarmServis extends Service {
 
     private void resetAlarms() {
         if (pendingIntentArrayList.size() > 0) {
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             for (int i = 0; i < pendingIntentArrayList.size(); i++) {
+                pendingIntentArrayList.get(i).cancel();
                 alarmManager.cancel(pendingIntentArrayList.get(i));
             }
             pendingIntentArrayList.clear();
         }
     }
 
-    private void setAlarm(long zilTime) {
-        //getting the alarm manager
-        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+    private void setAlarm(long zilTime, String alarmAdi) {
 
-        //creating a new intent specifying the broadcast receiver
         Intent intent = new Intent(getBaseContext(), MyAlarm.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(),
+                ((int) zilTime), intent, PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager alarmManager2 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        assert alarmManager2 != null;
+        alarmManager2.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, zilTime, pendingIntent);
 
-        int alarmID = pendingIntentArrayList.size();
-        //creating a pending intent using the intent
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(),
-//                0,
-//                intent,
-//                PendingIntent.FLAG_CANCEL_CURRENT);
+        pendingIntentArrayList.add(pendingIntent);
 
-        PendingIntent pIntent = PendingIntent.getBroadcast(this, alarmID, intent, PendingIntent.FLAG_NO_CREATE);
-        if (pIntent != null) {
-            Log.d("alarm", "existing");
-            alarmManager.cancel(pIntent);
-        }
-        pIntent = PendingIntent.getBroadcast(this, alarmID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        //RTC_? pil tasarrufu seçeneği
-        assert alarmManager != null;
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
-                zilTime,
-                pIntent);
-
-        pendingIntentArrayList.add(pIntent);
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        Log.e("alarm BAŞLA ", formatter.format(date) + "\n"
+                + alarmAdi + "-" + formatter.format(zilTime));
     }
 
     private void akilliZilBilgisi() {
 
         if (zillers.size() == 0) {
-            globalDegerler.hizmetBildirimiMesaji = getResources().getString(R.string.zilYok);
+            GLOBAL_hizmetBildirimiMesaji = getResources().getString(R.string.zilYok);
             return;
         }
 
         ArrayList<Long> surelerArray = new ArrayList<>();
         ArrayList<Long> teneffusBitisArray = new ArrayList<>();
 
+        Calendar calendar = Calendar.getInstance();
         //eski alarmları kapat
-        if (pendingIntentArrayList.size() > 60 * 60 * 24)
+        if (pendingIntentArrayList.size() > 60 * 60 * 24 ||
+                (calendar.get(Calendar.HOUR_OF_DAY) == 0 &&
+                        calendar.get(Calendar.MINUTE) == 0)) {
             resetAlarms();
+        }
 
         for (int i = 0; i < zillers.size(); i++) {
             //veritabanındaki saat:dakika
@@ -253,7 +249,6 @@ public class alarmServis extends Service {
             int dakika = dakikaGetir(zillers.get(i).getZaman());
             int sure = sureGetir(zillers.get(i).getZaman());
 
-            Calendar calendar = Calendar.getInstance();
             calendar.set(calendar.get(Calendar.YEAR),
                     calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.DAY_OF_MONTH),
@@ -261,21 +256,29 @@ public class alarmServis extends Service {
                     dakika,
                     0);
 
-            //eğer şu an alarm öncesinde ise
-            if (Calendar.getInstance().before(calendar)) {
-                setAlarm(calendar.getTimeInMillis());               //teneffüs başı
-            }
+            String geciciTarih = calendar.get(Calendar.DAY_OF_MONTH) + "/" +
+                    calendar.get(Calendar.MONTH) + "/" +
+                    calendar.get(Calendar.YEAR);
 
+            //eğer "şu an" alarm öncesinde ise
+            if (Calendar.getInstance().before(calendar)
+                    &&
+                    (GLOBAL_sonGun.equals("") ||
+                            !GLOBAL_sonGun.equals(geciciTarih))) {
+                setAlarm(calendar.getTimeInMillis(), zillers.get(i).getName() + " [İLK]");        //teneffüs başı
+            }
             //teneffüs bitişi
-            if (sure > 0) {
+            if (Calendar.getInstance().before(calendar)
+                    && (sure > 0) &&
+                    (GLOBAL_sonGun.equals("") ||
+                            !GLOBAL_sonGun.equals(geciciTarih))) {
                 calendar.set(calendar.get(Calendar.YEAR),
                         calendar.get(Calendar.MONTH),
                         calendar.get(Calendar.DAY_OF_MONTH),
                         saat,
                         dakika + sure,
                         0);
-                if (Calendar.getInstance().before(calendar))
-                    setAlarm(calendar.getTimeInMillis()); //teneffüs sonu
+                setAlarm(calendar.getTimeInMillis(), zillers.get(i).getName() + " [SON]"); //teneffüs sonu
             }
 
             Calendar currentTime = Calendar.getInstance();
@@ -285,12 +288,22 @@ public class alarmServis extends Service {
             surelerArray.add(diff);              //teneffüs başlangıç zamanı
             teneffusBitisArray.add(diff + sure); //teneffüs bitiş zamanı
             if (min1 >= min2 && min1 < min2 + sure) {
-                globalDegerler.hizmetBildirimiMesaji = zillers.get(i).getName() + "\n" +
+                GLOBAL_hizmetBildirimiMesaji = zillers.get(i).getName() + "\n" +
                         getResources().getString(R.string.toFinish) + " "
                         + (min2 + sure - min1)
                         + " " + getResources().getString(R.string.minutes);
                 return; //alttakileri yapmasın, teneffüs içindeyiz
             }
+        }
+
+        String geciciTarih = calendar.get(Calendar.DAY_OF_MONTH) + "/" +
+                calendar.get(Calendar.MONTH) + "/" +
+                calendar.get(Calendar.YEAR);
+
+        if (GLOBAL_sonGun.equals("") || !GLOBAL_sonGun.equals(geciciTarih)) {
+            //yeni bir güne geçilmiş ise yeni tarihi al ve alarmları temizle
+            GLOBAL_sonGun = geciciTarih;
+            //resetAlarms();
         }
 
         long enKucuk = Long.MAX_VALUE;
@@ -303,16 +316,16 @@ public class alarmServis extends Service {
 
         if (enKucuk != Long.MAX_VALUE && index != -1) {
             if (enKucuk > 60)
-                globalDegerler.hizmetBildirimiMesaji = zillers.get(index).getName() + "\n" +
+                GLOBAL_hizmetBildirimiMesaji = zillers.get(index).getName() + "\n" +
                         new DecimalFormat("#,#0.0").format((double) (enKucuk / 60f))
                         + " " + getResources().getString(R.string.hourLeft);
             else
-                globalDegerler.hizmetBildirimiMesaji = zillers.get(index).getName() + "\n" +
+                GLOBAL_hizmetBildirimiMesaji = zillers.get(index).getName() + "\n" +
                         enKucuk
                         + " " + getResources().getString(R.string.minutesLeft);
 
         } else
-            globalDegerler.hizmetBildirimiMesaji = getResources().getString(R.string.zilYok);
+            GLOBAL_hizmetBildirimiMesaji = getResources().getString(R.string.zilYok);
     }
 
     private Notification getMyActivityNotification(String text) {
@@ -335,8 +348,8 @@ public class alarmServis extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         handler.postDelayed(runnable, 2000);
 
-        globalDegerler.hizmetBildirimiMesaji = "..";
-        bilgileriGuncelle(globalDegerler.hizmetBildirimiMesaji);
+        GLOBAL_hizmetBildirimiMesaji = "..";
+        bilgileriGuncelle(GLOBAL_hizmetBildirimiMesaji);
 
         //do heavy work on a background thread
         return START_NOT_STICKY;

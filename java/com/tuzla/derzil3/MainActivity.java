@@ -26,6 +26,10 @@ import com.tuzla.database.swipeActivity;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.tuzla.derzil3.globalDegerler.GLOBAL_hizmetBildirimiMesaji;
+import static com.tuzla.derzil3.globalDegerler.GLOBAL_hizmetDurumuMesaji;
+import static com.tuzla.derzil3.globalDegerler.GLOBAL_tazeleme;
+
 public class MainActivity extends AppCompatActivity {
     Handler handler = new Handler();
     Timer timer;
@@ -113,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         timer = new Timer();
-        timer.schedule(timerTask, 100, 1500);//ana program refresh
+        timer.schedule(timerTask, 100, GLOBAL_tazeleme);//ana program refresh
     }
 
     @Override
@@ -131,18 +135,18 @@ public class MainActivity extends AppCompatActivity {
         TextView m2 = findViewById(R.id.mesaj2);
 
         if (!checkServiceRunning()) {
-            globalDegerler.hizmetDurumuMesaji = getResources().getString(R.string.arkaplanHizmetiNo);
+            GLOBAL_hizmetDurumuMesaji = getResources().getString(R.string.arkaplanHizmetiNo);
         } else {
-            globalDegerler.hizmetDurumuMesaji = getResources().getString(R.string.arkaplanHizmetiOk);
+            GLOBAL_hizmetDurumuMesaji = getResources().getString(R.string.arkaplanHizmetiOk);
         }
 
-        m1.setText(globalDegerler.hizmetDurumuMesaji);
-        m2.setText(globalDegerler.hizmetBildirimiMesaji);
+        m1.setText(GLOBAL_hizmetDurumuMesaji);
+        m2.setText(GLOBAL_hizmetBildirimiMesaji);
 
         //Widget Ayarlarını uygula
         RemoteViews view = new RemoteViews(getPackageName(), R.layout.zaman_app_widget);
 
-        view.setTextViewText(R.id.teneffustextView, globalDegerler.hizmetBildirimiMesaji);
+        view.setTextViewText(R.id.teneffustextView, GLOBAL_hizmetBildirimiMesaji);
 
         view.setInt(R.id.rootBG, "setBackgroundColor",
                 ColorUtils.setAlphaComponent(Color.argb(

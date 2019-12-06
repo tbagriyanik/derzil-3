@@ -378,10 +378,6 @@ public class swipeActivity extends AppCompatActivity {
                 return 0;
             }
 
-//            Log.wtf("sure1 ", Integer.toString(sure1));
-//            Log.wtf("sure2 ", Integer.toString(sure2));
-//            Log.wtf("---", "---");
-
             if (sure1 > sure2)
                 return 1;
             else if (sure1 < sure2)

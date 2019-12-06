@@ -12,6 +12,8 @@ import android.widget.RemoteViews;
 
 import androidx.core.graphics.ColorUtils;
 
+import static com.tuzla.derzil3.globalDegerler.GLOBAL_hizmetDurumuMesaji;
+
 public class zamanAppWidget extends AppWidgetProvider {
     private static SharedPreferences pref;
 
@@ -24,7 +26,7 @@ public class zamanAppWidget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.zaman_app_widget);
         views.setOnClickPendingIntent(R.id.ayarbutton, pendingIntent);
 
-        views.setTextViewText(R.id.teneffustextView, globalDegerler.hizmetDurumuMesaji);
+        views.setTextViewText(R.id.teneffustextView, GLOBAL_hizmetDurumuMesaji);
 
         pref = context.getApplicationContext().getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
 

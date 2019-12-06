@@ -22,6 +22,10 @@ public class Constants {
             + GUNLER + " VARCHAR(7) NOT NULL, "
             + AKTIF + " INTEGER NOT NULL  );";
 
+    //INSERT A SAMPLE RECORD
+    static final String INSERT_SAMPLE = "INSERT INTO " + TB_NAME + " VALUES " +
+            "(null, 'Sample 1', '12:00-10', '1111100', '1');";
+
     //DROP TB
     static final String DROP_TB = "DROP TABLE IF EXISTS " + TB_NAME;
 

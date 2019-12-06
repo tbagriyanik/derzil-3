@@ -9,30 +9,18 @@ import android.os.Vibrator;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 
 public class MyAlarm extends BroadcastReceiver {
     SharedPreferences pref;
-    Calendar oldTime = null;
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
-        Calendar activeTime = Calendar.getInstance();
-        int hour = activeTime.get(Calendar.HOUR_OF_DAY);
-        int minu = activeTime.get(Calendar.MINUTE);
-        int seconds = activeTime.get(Calendar.SECOND);
-        if (seconds > 3 ||
-                (oldTime != null &&
-                        hour == oldTime.get(Calendar.HOUR_OF_DAY) &&
-                        minu == oldTime.get(Calendar.MINUTE)))
-            //dakikanın başında sadece alarm olabilir, eski alarm ile aynı olamaz
-            return;
-
-        pref = context.getApplicationContext().getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
+        pref = context.getApplicationContext().
+                getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
 
         if (!pref.getBoolean("hizmetDurumu", false)) {
             return;
@@ -41,7 +29,7 @@ public class MyAlarm extends BroadcastReceiver {
         if (pref.getBoolean("titresim", false)) {
             //titreşim desteği
             Vibrator v = (Vibrator) context.getSystemService(VIBRATOR_SERVICE);
-            long[] pattern = {0, 200, 50, 200, 50}; //3 kere zzıt
+            long[] pattern = {0, 200, 50, 200, 50};
 
             if (v.hasVibrator())
                 v.vibrate(pattern, -1);
@@ -65,7 +53,6 @@ public class MyAlarm extends BroadcastReceiver {
 
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
-        Log.w("alarm BİTTİ", "Zaman: " + formatter.format(date));
-        oldTime = Calendar.getInstance();
+        Log.e("alarm BİTTİ", "Zaman: " + formatter.format(date));
     }
 }

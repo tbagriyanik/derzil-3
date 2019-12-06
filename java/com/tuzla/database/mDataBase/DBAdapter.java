@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import static com.tuzla.derzil3.globalDegerler.GLOBAL_sonGun;
+
 public class DBAdapter {
 
     Context c;
@@ -75,6 +77,8 @@ public class DBAdapter {
 
             db.update(Constants.TB_NAME, cv,
                     Constants.ROW_ID + "=" + id, null);
+
+            GLOBAL_sonGun = ""; //Alarmları yenilesin
             return true;
 
         } catch (Exception e) {
@@ -95,6 +99,8 @@ public class DBAdapter {
             if (!saatFormat(zaman)) return false;
 
             db.insert(Constants.TB_NAME, Constants.ROW_ID, cv);
+
+            GLOBAL_sonGun = ""; //Alarmları yenilesin
             return true;
 
         } catch (Exception e) {
@@ -107,6 +113,7 @@ public class DBAdapter {
     public Cursor retrieve() {
         String[] columns = {Constants.ROW_ID, Constants.NAME, Constants.ZAMAN, Constants.GUNLER, Constants.AKTIF};
 
+        //GLOBAL_sonGun = ""; //Alarmları yenilesin
         return db.query(Constants.TB_NAME, columns, null,
                 null, null, null, null);
     }
@@ -118,6 +125,7 @@ public class DBAdapter {
                     Constants.ROW_ID + " =?",
                     new String[]{String.valueOf(id)});
             if (result > 0) {
+                GLOBAL_sonGun = ""; //Alarmları yenilesin
                 return true;
             }
 
