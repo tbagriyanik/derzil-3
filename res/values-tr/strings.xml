@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Ders Zilleri</string>
+    <string name="app_name">Ödev Zilleri</string>
     <string name="tab_text_1">Teneffüsler</string>
     <string name="tab_text_2">Ayarlar</string>
     <string name="zilYok">Şimdilik zil yok…</string>
@@ -20,7 +20,7 @@
     <string name="Error">İşlem Başarısız!</string>
     <string name="emptyError">Boş alan bırakılamaz</string>
     <string name="about">derZil bir çoklu alarm uygulamasıdır.\nAna ekranınıza bir widget ekleyebilir, kilit ekranında bildirimleri görebilirsiniz.\nWidget`ınızı özelleştirmek kolaydır. Zil zamanlarınızı ekleyin ve zamanı gelince uyarı alın.\nhttp://yunus.sf.net</string>
-    <string name="todo">TODO</string>
+    <string name="todo">Yapılacak</string>
     <string name="Success">İşlem Başarılı</string>
     <string name="activeState">Aktif</string>
     <string name="hafta1">Pt</string>

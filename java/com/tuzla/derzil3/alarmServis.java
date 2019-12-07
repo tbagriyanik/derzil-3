@@ -197,6 +197,9 @@ public class alarmServis extends Service {
             return sure;
     }
 
+    /**
+     * Tüm alarmlar yok edilir
+     */
     private void resetAlarms() {
         if (pendingIntentArrayList.size() > 0) {
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -225,7 +228,7 @@ public class alarmServis extends Service {
                 + alarmAdi + "-" + formatter.format(zilTime));
     }
 
-    private void akilliZilBilgisi() {
+    public void akilliZilBilgisi() {
 
         if (zillers.size() == 0) {
             GLOBAL_hizmetBildirimiMesaji = getResources().getString(R.string.zilYok);
@@ -236,10 +239,12 @@ public class alarmServis extends Service {
         ArrayList<Long> teneffusBitisArray = new ArrayList<>();
 
         Calendar calendar = Calendar.getInstance();
-        //eski alarmları kapat
-        if (pendingIntentArrayList.size() > 60 * 60 * 24 ||
-                (calendar.get(Calendar.HOUR_OF_DAY) == 0 &&
-                        calendar.get(Calendar.MINUTE) == 0)) {
+        String geciciTarih = calendar.get(Calendar.DAY_OF_MONTH) + "/" +
+                calendar.get(Calendar.MONTH) + "/" +
+                calendar.get(Calendar.YEAR);
+
+        if (GLOBAL_sonGun.equals("") || !GLOBAL_sonGun.equals(geciciTarih)) {
+            //yeni bir güne geçilmiş ise yeni tarihi al ve alarmları temizle
             resetAlarms();
         }
 
@@ -249,35 +254,33 @@ public class alarmServis extends Service {
             int dakika = dakikaGetir(zillers.get(i).getZaman());
             int sure = sureGetir(zillers.get(i).getZaman());
 
+            //eğer "şu an" alarm öncesinde ise 1.ZİL
             calendar.set(calendar.get(Calendar.YEAR),
                     calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.DAY_OF_MONTH),
                     saat,
                     dakika,
                     0);
-
-            String geciciTarih = calendar.get(Calendar.DAY_OF_MONTH) + "/" +
-                    calendar.get(Calendar.MONTH) + "/" +
-                    calendar.get(Calendar.YEAR);
-
-            //eğer "şu an" alarm öncesinde ise
+            calendar.set(Calendar.MILLISECOND, 0);
             if (Calendar.getInstance().before(calendar)
                     &&
                     (GLOBAL_sonGun.equals("") ||
                             !GLOBAL_sonGun.equals(geciciTarih))) {
                 setAlarm(calendar.getTimeInMillis(), zillers.get(i).getName() + " [İLK]");        //teneffüs başı
             }
-            //teneffüs bitişi
+
+            //teneffüs bitişi 2.ZİL
+            calendar.set(calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH),
+                    saat,
+                    dakika + sure,
+                    0);
+            calendar.set(Calendar.MILLISECOND, 0);
             if (Calendar.getInstance().before(calendar)
                     && (sure > 0) &&
                     (GLOBAL_sonGun.equals("") ||
                             !GLOBAL_sonGun.equals(geciciTarih))) {
-                calendar.set(calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH),
-                        saat,
-                        dakika + sure,
-                        0);
                 setAlarm(calendar.getTimeInMillis(), zillers.get(i).getName() + " [SON]"); //teneffüs sonu
             }
 
@@ -292,18 +295,19 @@ public class alarmServis extends Service {
                         getResources().getString(R.string.toFinish) + " "
                         + (min2 + sure - min1)
                         + " " + getResources().getString(R.string.minutes);
+
+                if (GLOBAL_sonGun.equals("") || !GLOBAL_sonGun.equals(geciciTarih)) {
+                    //yeni bir güne geçilmiş ise yeni tarihi al ve alarmları temizle
+                    GLOBAL_sonGun = geciciTarih;
+                } // bu işlemi atlamamak lazım
+
                 return; //alttakileri yapmasın, teneffüs içindeyiz
             }
         }
 
-        String geciciTarih = calendar.get(Calendar.DAY_OF_MONTH) + "/" +
-                calendar.get(Calendar.MONTH) + "/" +
-                calendar.get(Calendar.YEAR);
-
         if (GLOBAL_sonGun.equals("") || !GLOBAL_sonGun.equals(geciciTarih)) {
             //yeni bir güne geçilmiş ise yeni tarihi al ve alarmları temizle
             GLOBAL_sonGun = geciciTarih;
-            //resetAlarms();
         }
 
         long enKucuk = Long.MAX_VALUE;

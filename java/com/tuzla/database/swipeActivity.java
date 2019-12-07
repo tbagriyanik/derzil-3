@@ -47,6 +47,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 
+import static com.tuzla.derzil3.globalDegerler.GLOBAL_sonGun;
+
 public class swipeActivity extends AppCompatActivity {
 
     static RecyclerView rv;
@@ -149,6 +151,7 @@ public class swipeActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 getZiller();
+                GLOBAL_sonGun = ""; //Alarmları yenilesin
                 swipeContainer.setRefreshing(false);
             }
         });

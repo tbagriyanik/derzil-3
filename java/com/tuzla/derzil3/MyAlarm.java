@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
 
@@ -16,9 +17,18 @@ import static android.content.Context.VIBRATOR_SERVICE;
 public class MyAlarm extends BroadcastReceiver {
     SharedPreferences pref;
 
-
     @Override
     public void onReceive(Context context, Intent intent) {
+        Bundle extras = intent.getExtras();
+        assert extras != null;
+        String gelenBilgi = extras.getString("gunlukGuncelleme");
+        if (gelenBilgi != null && gelenBilgi.equals("1")) {
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+            Date date = new Date(System.currentTimeMillis());
+            Log.e("alarm BİTT", "Zaman: " + formatter.format(date));
+            return;
+        }
+
         pref = context.getApplicationContext().
                 getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
 

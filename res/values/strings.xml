@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lesson Bells</string>
+    <string name="app_name">Task Bells</string>
     <string name="tab_text_1">Breaks</string>
     <string name="tab_text_2">Sett"ings</string>
     <string name="zilYok">No bells for now…</string>
@@ -19,7 +19,6 @@
     <string name="Error">Action Failed!</string>
     <string name="emptyError">Can not leave blank fields</string>
     <string name="about">derZil is a multi alarm notification application.\nYou can add a widget to your main screen or see the lock screen notification.\nCustomizing your widget is easy. Add your bell times and get warned on time.\nhttp://yunus.sf.net</string>
-    <string name="todo">TODO</string>
     <string name="Success">Action Successful</string>
     <string name="activeState">Active</string>
     <string name="hafta1">Mo</string>
@@ -36,8 +35,9 @@
     <string name="hourLeft">hour(s) left</string>
     <string name="minutes">minute(s)</string>
     <string name="minutesLeft">minute(s) left</string>
-    <string name="toFinish">finishing in</string>
+    <string name="toFinish">remaining</string>
     <string name="importTxt">Import from file</string>
     <string name="exportTxt">Export to file</string>
+    <string name="todo">TODO</string>
 
 </resources>
