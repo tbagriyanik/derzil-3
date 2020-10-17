@@ -9,7 +9,7 @@ Starting date: 12th October, 2019
 
 ### Prerequisites
 
-Just need Android Studio (3.5.2 for now)
+Just need Android Studio (4.1 or newer version)
 
 ## Running the tests
 
