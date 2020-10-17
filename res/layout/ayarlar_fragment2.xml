@@ -104,15 +104,15 @@
             <RadioGroup
                 android:id="@+id/widgetFontSize"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:checkedButton="@id/radioButton2"
                 android:orientation="horizontal"
                 android:padding="15dp">
 
                 <TextView
                     android:id="@+id/textView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/widgetFontSize"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused" />
@@ -121,13 +121,13 @@
                     android:id="@+id/radioButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="14" />
+                    android:text="12" />
 
                 <RadioButton
                     android:id="@+id/radioButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="16" />
+                    android:text="14" />
 
                 <RadioButton
                     android:id="@+id/radioButton3"
@@ -150,6 +150,13 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/defaultVal"
                 android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/ayarlarHakkinda" />
 
         </LinearLayout>
     </ScrollView>

@@ -40,4 +40,5 @@
     <string name="minutes">dakika</string>
     <string name="importTxt">Dosyadan Al</string>
     <string name="exportTxt">Dosyaya Aktar</string>
+    <string name="ayarlarHakkinda">"Dosya izni, zillerin yedeklenmesi için gerekir. Pil tasarruf modları uygulamanın kapanmasına neden olabilir, istisna ekleyebilirsiniz. "</string>
 </resources>

@@ -64,14 +64,14 @@
                     android:id="@+id/mesaj2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
                     android:gravity="center_horizontal"
                     android:minHeight="?actionBarSize"
                     android:padding="@dimen/appbar_padding"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/beyaz"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="14sp" />
 
                 <Button
                     android:id="@+id/zillerButton"

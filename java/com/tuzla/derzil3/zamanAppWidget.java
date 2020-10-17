@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import androidx.core.graphics.ColorUtils;
@@ -17,8 +19,8 @@ import static com.tuzla.derzil3.globalDegerler.GLOBAL_hizmetDurumuMesaji;
 public class zamanAppWidget extends AppWidgetProvider {
     private static SharedPreferences pref;
 
-    public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                       int appWidgetId) {
+    public void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                int appWidgetId) {
 
         //düğmeye basınca ana program açılır, ilk mesaj yüklenir
         Intent intent = new Intent(context, MainActivity.class);
@@ -38,7 +40,6 @@ public class zamanAppWidget extends AppWidgetProvider {
                         , pref.getInt("blue", 254)),
                         pref.getInt("alpha", 50)));
 
-
         switch (pref.getInt("fontSize", 2)) {
             case 1:
                 views.setTextViewTextSize(R.id.teneffustextView, TypedValue.COMPLEX_UNIT_DIP, 12);
@@ -54,8 +55,31 @@ public class zamanAppWidget extends AppWidgetProvider {
                 break;
         }
 
+        Bundle appWidgetOptions = appWidgetManager.getAppWidgetOptions(appWidgetId);
+        resizeWidget(appWidgetOptions, views);
+
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
+    }
+
+    @Override
+    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.zaman_app_widget);
+        resizeWidget(newOptions, views);
+        appWidgetManager.updateAppWidget(appWidgetId, views);
+    }
+
+    private void resizeWidget(Bundle appWidgetOptions, RemoteViews views) {
+        int minWidth = appWidgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
+        //int minHeight = appWidgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
+
+        if (minWidth > 150) { //&& minHeight > 120
+            views.setViewVisibility(R.id.ayarbutton, View.VISIBLE);
+            views.setViewVisibility(R.id.appwidget_text, View.VISIBLE);
+        } else {
+            views.setViewVisibility(R.id.ayarbutton, View.GONE);
+            views.setViewVisibility(R.id.appwidget_text, View.GONE);
+        }
     }
 
     @Override
