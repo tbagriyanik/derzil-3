@@ -56,7 +56,16 @@ public class zamanAppWidget extends AppWidgetProvider {
         }
 
         Bundle appWidgetOptions = appWidgetManager.getAppWidgetOptions(appWidgetId);
-        resizeWidget(appWidgetOptions, views);
+        int minWidth = appWidgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
+        //int minHeight = appWidgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
+
+        if (minWidth > 150) { //&& minHeight > 120
+            views.setViewVisibility(R.id.ayarbutton, View.VISIBLE);
+            views.setViewVisibility(R.id.appwidget_text, View.VISIBLE);
+        } else {
+            views.setViewVisibility(R.id.ayarbutton, View.GONE);
+            views.setViewVisibility(R.id.appwidget_text, View.GONE);
+        }
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -71,7 +80,6 @@ public class zamanAppWidget extends AppWidgetProvider {
 
     private void resizeWidget(Bundle appWidgetOptions, RemoteViews views) {
         int minWidth = appWidgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
-        //int minHeight = appWidgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
 
         if (minWidth > 150) { //&& minHeight > 120
             views.setViewVisibility(R.id.ayarbutton, View.VISIBLE);

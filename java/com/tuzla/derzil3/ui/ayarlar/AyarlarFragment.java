@@ -1,10 +1,14 @@
 package com.tuzla.derzil3.ui.ayarlar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +52,7 @@ public class AyarlarFragment extends Fragment {
         final SeekBar alp = vw.findViewById(R.id.seekBarA);
         final TextView TextRgba = vw.findViewById(R.id.textViewRGBA);
         final Button defaultVal = vw.findViewById(R.id.buttonDefault);
+        final Button ringToneSelectButton = vw.findViewById(R.id.ringTonebutton);
         final RadioGroup rg1 = vw.findViewById(R.id.widgetFontSize);
 
         pref = this.getActivity().getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
@@ -86,6 +91,14 @@ public class AyarlarFragment extends Fragment {
         }
         if (!pref.contains("fontSize")) {
             editor.putInt("fontSize", 2);
+            editor.apply();
+        }
+
+        if (!pref.contains("ringtone")) {
+            final Uri currentTone =
+                    RingtoneManager.getActualDefaultRingtoneUri(getContext(),
+                            RingtoneManager.TYPE_NOTIFICATION);
+            editor.putString("ringtone", currentTone.toString());
             editor.apply();
         }
 
@@ -134,6 +147,30 @@ public class AyarlarFragment extends Fragment {
                                           }
                                       }
         );
+        ringToneSelectButton.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View v) {
+                                                        Uri currentTone =
+                                                                RingtoneManager.getActualDefaultRingtoneUri(getContext(),
+                                                                        RingtoneManager.TYPE_NOTIFICATION);
+
+                                                        if (pref.contains("ringtone")) {
+                                                            currentTone = Uri.parse(pref.getString("ringtone", currentTone.toString()));
+                                                        }
+
+                                                        Log.e("alarm Tipi3", pref.getString("ringtone", currentTone.toString()));
+
+                                                        Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+                                                        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
+                                                        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, getResources().getString(R.string.ringToneSelect));
+                                                        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, currentTone);
+                                                        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false);
+                                                        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true);
+                                                        startActivityForResult(intent, 999);
+                                                    }
+                                                }
+        );
+
 
         sw1.setOnClickListener(new View.OnClickListener() {
                                    @Override
@@ -264,6 +301,18 @@ public class AyarlarFragment extends Fragment {
         });
 
         return vw;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 999 && resultCode == Activity.RESULT_OK) {
+            Uri uri = (Uri) data.getExtras().get(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putString("ringtone", uri.toString());
+            editor.apply();
+
+            Log.e("alarm Tipi2", pref.getString("ringtone", uri.toString()));
+        }
     }
 
     private void geri() {

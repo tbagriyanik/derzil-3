@@ -49,6 +49,12 @@
                 android:padding="15dp"
                 android:text="@string/switch2" />
 
+            <Button
+                android:id="@+id/ringTonebutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ringToneSelect" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

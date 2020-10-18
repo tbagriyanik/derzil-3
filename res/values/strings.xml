@@ -40,5 +40,6 @@
     <string name="exportTxt">Export to file</string>
     <string name="todo">TODO</string>
     <string name="ayarlarHakkinda">File permission is for backup notifications. Power optimisations can close application, you might need to add exceptions.</string>
+    <string name="ringToneSelect">Ring Tone Select</string>
 
 </resources>

@@ -4,7 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -48,17 +50,14 @@ public class MyAlarm extends BroadcastReceiver {
         if (pref.getBoolean("ses", true)) {
             //ses desteği
 
-//            Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-//            if (alarmUri == null) {
-//                alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//            }
-//            Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
-//            ringtone.play();
+            Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            if (pref.contains("ringtone")) {
+                alarmUri = Uri.parse(pref.getString("ringtone", alarmUri.toString()));
+            }
+            Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
+            ringtone.play();
 
-            //MP3 seç demektense üstteki gibi olsa iyi, şimdilik çok uzunlar
-            MediaPlayer mp;
-            mp = MediaPlayer.create(context, R.raw.zil2);
-            mp.start();
+            Log.e("alarm Tipi1", pref.getString("ringtone", alarmUri.toString()));
         }
 
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
