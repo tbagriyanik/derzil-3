@@ -56,12 +56,9 @@ public class DBAdapter {
             return false;
         }
 
-        if (dakika < 0 || dakika > 59
-                || saat < 0 || saat > 23
-                || sure < 0 || sure > 1000)
-            return false;
-        else
-            return true;
+        return dakika >= 0 && dakika <= 59
+                && saat >= 0 && saat <= 23
+                && sure >= 0 && sure <= 1000;
     }
 
     //EDIT/UPDATE

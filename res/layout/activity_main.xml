@@ -51,7 +51,8 @@
                     android:onClick="servisKapaAc"
                     android:text="@string/arkaplanHizmetiNo"
                     android:textColor="@color/beyaz"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             </LinearLayout>
 
@@ -72,6 +73,24 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/beyaz"
                     android:textSize="14sp" />
+
+                <Switch
+                    android:id="@+id/switchNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="dismissNextClick"
+                    android:padding="15dp"
+                    android:text="@string/dismissNext"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+                <Switch
+                    android:id="@+id/switchAll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="dismissAllClick"
+                    android:padding="15dp"
+                    android:text="@string/dismissAll"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
 
                 <Button
                     android:id="@+id/zillerButton"

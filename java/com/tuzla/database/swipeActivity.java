@@ -299,7 +299,7 @@ public class swipeActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    String values = new String();
+                    String values = "";
                     // nextLine[] is an array of values from the line
                     if (count > 0) values += " (";
                     //i=0 olunca id dir
@@ -319,7 +319,7 @@ public class swipeActivity extends AppCompatActivity {
 
                     if (values.length() != 0)
                         db.execSQL("Insert INTO " + Constants.TB_NAME + "  values " +
-                                values.toString());
+                                values);
 
                     count++;
                 }

@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.util.TypedValue;
 import android.widget.RemoteViews;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
@@ -47,9 +49,10 @@ public class alarmServis extends Service {
 
     SharedPreferences pref;
 
-    private Handler handler = new Handler();
-    private Runnable runnable = new Runnable() {
+    private final Handler handler = new Handler();
+    private final Runnable runnable = new Runnable() {
 
+        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void run() {
 
@@ -66,13 +69,13 @@ public class alarmServis extends Service {
         int weekday = calendar.get(Calendar.DAY_OF_WEEK);
         //PAZAR 1, pzt 2, sali 3, çars 4, pers 5, cuma 6, cmt 7
         //bizim vt'de Pzrt,..., Pzr
-        if (weekday == 1) return gunler.substring(6, 7).equals("1");
-        else if (weekday == 2) return gunler.substring(0, 1).equals("1");
-        else if (weekday == 3) return gunler.substring(1, 2).equals("1");
-        else if (weekday == 4) return gunler.substring(2, 3).equals("1");
-        else if (weekday == 5) return gunler.substring(3, 4).equals("1");
-        else if (weekday == 6) return gunler.substring(4, 5).equals("1");
-        else if (weekday == 7) return gunler.substring(5, 6).equals("1");
+        if (weekday == 1) return gunler.startsWith("1", 6);
+        else if (weekday == 2) return gunler.startsWith("1");
+        else if (weekday == 3) return gunler.startsWith("1", 1);
+        else if (weekday == 4) return gunler.startsWith("1", 2);
+        else if (weekday == 5) return gunler.startsWith("1", 3);
+        else if (weekday == 6) return gunler.startsWith("1", 4);
+        else if (weekday == 7) return gunler.startsWith("1", 5);
         else return false;
     }
 
@@ -211,6 +214,7 @@ public class alarmServis extends Service {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void setAlarm(long zilTime, String alarmAdi) {
 
         Intent intent = new Intent(getBaseContext(), MyAlarm.class);
@@ -228,6 +232,7 @@ public class alarmServis extends Service {
                 + alarmAdi + "-" + formatter.format(zilTime));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void akilliZilBilgisi() {
 
         if (zillers.size() == 0) {
@@ -321,7 +326,7 @@ public class alarmServis extends Service {
         if (enKucuk != Long.MAX_VALUE && index != -1) {
             if (enKucuk > 60)
                 GLOBAL_hizmetBildirimiMesaji = zillers.get(index).getName() + "\n" +
-                        new DecimalFormat("#,#0.0").format((double) (enKucuk / 60f))
+                        new DecimalFormat("#,#0.0").format(enKucuk / 60f)
                         + " " + getResources().getString(R.string.hourLeft);
             else
                 GLOBAL_hizmetBildirimiMesaji = zillers.get(index).getName() + "\n" +
@@ -334,8 +339,6 @@ public class alarmServis extends Service {
 
     private Notification getMyActivityNotification(String text) {
         Intent notificationIntent = new Intent(this, MainActivity.class);
-        pendingIntent = PendingIntent.getActivity(this,
-                0, notificationIntent, 0);
 
         Notification mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle(text) //üst kalın başlık
@@ -344,8 +347,18 @@ public class alarmServis extends Service {
                 .setOngoing(true)
                 .setSmallIcon(R.drawable.bell)
                 .setColor(ContextCompat.getColor(this, R.color.arkaplan))
+                .addAction(R.drawable.baseline_done_black_18dp, getResources().getString(R.string.dismissNext), makePendingIntent("dismiss_actionNext"))
+                .addAction(R.drawable.baseline_done_all_black_18dp, getResources().getString(R.string.dismissAll), makePendingIntent("dismiss_actionAll"))
                 .setContentIntent(pendingIntent).getNotification();
         return mBuilder;
+    }
+
+    public PendingIntent makePendingIntent(String name)
+    {
+        Intent intent = new Intent(this, derzilReceiver.class);
+        intent.setAction(name);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        return pendingIntent;
     }
 
     @Override

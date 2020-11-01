@@ -33,15 +33,17 @@ import java.util.TimerTask;
 import static com.tuzla.derzil3.globalDegerler.GLOBAL_hizmetBildirimiMesaji;
 import static com.tuzla.derzil3.globalDegerler.GLOBAL_hizmetDurumuMesaji;
 import static com.tuzla.derzil3.globalDegerler.GLOBAL_tazeleme;
+import static com.tuzla.derzil3.globalDegerler.dismiss_All;
+import static com.tuzla.derzil3.globalDegerler.dismiss_Next;
 
 public class MainActivity extends AppCompatActivity {
     Handler handler = new Handler();
     Timer timer;
-    Switch m1;
+    Switch m1, swNext, swAll;
     SharedPreferences pref;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {
+    private static final String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         m1 = findViewById(R.id.switchHizmet);
+        swNext = findViewById(R.id.switchNext);
+        swAll = findViewById(R.id.switchAll);
 
         verifyStoragePermissions(this);
 
@@ -176,6 +180,8 @@ public class MainActivity extends AppCompatActivity {
 
         m1.setText(GLOBAL_hizmetDurumuMesaji);
         m2.setText(GLOBAL_hizmetBildirimiMesaji);
+        swNext.setChecked(globalDegerler.dismiss_Next);
+        swAll.setChecked(globalDegerler.dismiss_All);
 
         //Widget Ayarlarını uygula
         RemoteViews view = new RemoteViews(getPackageName(), R.layout.zaman_app_widget);
@@ -237,6 +243,13 @@ public class MainActivity extends AppCompatActivity {
         stopService(serviceIntent);
     }
 
+
+    public void dismissNextClick(View view) {
+        dismiss_Next = !dismiss_Next;
+    }
+    public void dismissAllClick(View view) {
+        dismiss_All = !dismiss_All;
+    }
     public void servisKapaAc(View view) {
         if (m1.getTag() != "ATLA") {
             if (!checkServiceRunning()) {

@@ -32,11 +32,11 @@ public class CSVWriter {
      * Default line terminator uses platform encoding.
      */
     public static final String DEFAULT_LINE_END = "\n";
-    private PrintWriter pw;
-    private char separator;
-    private char quotechar;
-    private char escapechar;
-    private String lineEnd;
+    private final PrintWriter pw;
+    private final char separator;
+    private final char quotechar;
+    private final char escapechar;
+    private final String lineEnd;
 
     /**
      * Constructs CSVWriter using a comma for the separator.

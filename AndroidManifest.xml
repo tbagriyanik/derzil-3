@@ -43,6 +43,8 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="dismiss_actionNext" />
+                <action android:name="dismiss_actionAll" />
             </intent-filter>
         </receiver>
         <receiver android:name=".zamanAppWidget">

@@ -40,8 +40,8 @@ import java.util.Calendar;
 public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
 
     RecyclerView rv;
-    private Context c;
-    private ArrayList<Ziller> zillers;
+    private final Context c;
+    private final ArrayList<Ziller> zillers;
     private EditText nameEditText, durationEditText;
     private TextView saatDakikaTextView;
     private CheckBox hafta1, hafta2, hafta3, hafta4, hafta5, hafta6, hafta7;
@@ -80,13 +80,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         String gunler = "";
         String gelenBilgi = zillers.get(position).getGunler();
 
-        gunler += gelenBilgi.substring(0, 1).equals("1") ? c.getResources().getString(R.string.hafta1) + "," : "";
-        gunler += gelenBilgi.substring(1, 2).equals("1") ? c.getResources().getString(R.string.hafta2) + "," : "";
-        gunler += gelenBilgi.substring(2, 3).equals("1") ? c.getResources().getString(R.string.hafta3) + "," : "";
-        gunler += gelenBilgi.substring(3, 4).equals("1") ? c.getResources().getString(R.string.hafta4) + "," : "";
-        gunler += gelenBilgi.substring(4, 5).equals("1") ? c.getResources().getString(R.string.hafta5) + "," : "";
-        gunler += gelenBilgi.substring(5, 6).equals("1") ? c.getResources().getString(R.string.hafta6) + "," : "";
-        gunler += gelenBilgi.substring(6, 7).equals("1") ? c.getResources().getString(R.string.hafta7) : "";
+        gunler += gelenBilgi.startsWith("1") ? c.getResources().getString(R.string.hafta1) + "," : "";
+        gunler += gelenBilgi.startsWith("1", 1) ? c.getResources().getString(R.string.hafta2) + "," : "";
+        gunler += gelenBilgi.startsWith("1", 2) ? c.getResources().getString(R.string.hafta3) + "," : "";
+        gunler += gelenBilgi.startsWith("1", 3) ? c.getResources().getString(R.string.hafta4) + "," : "";
+        gunler += gelenBilgi.startsWith("1", 4) ? c.getResources().getString(R.string.hafta5) + "," : "";
+        gunler += gelenBilgi.startsWith("1", 5) ? c.getResources().getString(R.string.hafta6) + "," : "";
+        gunler += gelenBilgi.startsWith("1", 6) ? c.getResources().getString(R.string.hafta7) : "";
 
         gunler = sonVirgul(gunler);
 
@@ -230,13 +230,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
         if (oldgunler.length() < 7)
             oldgunler = "0000000";
 
-        hafta1.setChecked(oldgunler.substring(0, 1).equals("1"));
-        hafta2.setChecked(oldgunler.substring(1, 2).equals("1"));
-        hafta3.setChecked(oldgunler.substring(2, 3).equals("1"));
-        hafta4.setChecked(oldgunler.substring(3, 4).equals("1"));
-        hafta5.setChecked(oldgunler.substring(4, 5).equals("1"));
-        hafta6.setChecked(oldgunler.substring(5, 6).equals("1"));
-        hafta7.setChecked(oldgunler.substring(6, 7).equals("1"));
+        hafta1.setChecked(oldgunler.startsWith("1"));
+        hafta2.setChecked(oldgunler.startsWith("1", 1));
+        hafta3.setChecked(oldgunler.startsWith("1", 2));
+        hafta4.setChecked(oldgunler.startsWith("1", 3));
+        hafta5.setChecked(oldgunler.startsWith("1", 4));
+        hafta6.setChecked(oldgunler.startsWith("1", 5));
+        hafta7.setChecked(oldgunler.startsWith("1", 6));
 
         saatDakikaTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -336,7 +336,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
                     csvWrite.writeNext(curCSV.getColumnNames());
                     while (curCSV.moveToNext()) {
                         //Which column you want to export
-                        String arrStr[] = new String[curCSV.getColumnCount()];
+                        String[] arrStr = new String[curCSV.getColumnCount()];
                         for (int i = 0; i <= curCSV.getColumnCount() - 1; i++) {
                             if (curCSV.getString(i).length() == 0)
                                 arrStr[i] = "0";

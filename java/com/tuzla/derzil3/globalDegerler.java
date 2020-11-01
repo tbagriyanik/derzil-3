@@ -8,4 +8,6 @@ public class globalDegerler extends Application {
     public static String GLOBAL_hizmetBildirimiMesaji = ".";
     public static String GLOBAL_sonGun = ""; //boş ise yenilenir
     public static int GLOBAL_tazeleme = 1500;
+    public static boolean dismiss_Next = false;    //sonraki alarm ses/titreşim iptal
+    public static boolean dismiss_All = false;     //kalan alarm ses/titreşim iptal
 }

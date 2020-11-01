@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Task Bells</string>
     <string name="tab_text_1">Breaks</string>
-    <string name="tab_text_2">Sett"ings</string>
+    <string name="tab_text_2">Settings</string>
     <string name="zilYok">No bells for now…</string>
     <string name="derZilServisKanali">derZil Service Channel</string>
     <string name="arkaplanHizmetiOk">Notification is active</string>
@@ -39,7 +39,9 @@
     <string name="importTxt">Import from file</string>
     <string name="exportTxt">Export to file</string>
     <string name="todo">TODO</string>
-    <string name="ayarlarHakkinda">File permission is for backup notifications. Power optimisations can close application, you might need to add exceptions.</string>
+    <string name="ayarlarHakkinda">File permission is for backup notifications.\nPower optimisations can close application, you might need to add exceptions.</string>
     <string name="ringToneSelect">Ring Tone Select</string>
+    <string name="dismissNext">Dismiss Next</string>
+    <string name="dismissAll">Dismiss All</string>
 
 </resources>

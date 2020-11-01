@@ -15,6 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static android.content.Context.VIBRATOR_SERVICE;
+import static com.tuzla.derzil3.globalDegerler.dismiss_All;
+import static com.tuzla.derzil3.globalDegerler.dismiss_Next;
 
 public class MyAlarm extends BroadcastReceiver {
     SharedPreferences pref;
@@ -35,6 +37,10 @@ public class MyAlarm extends BroadcastReceiver {
                 getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
 
         if (!pref.getBoolean("hizmetDurumu", false)) {
+            return;
+        }
+        if (dismiss_Next || dismiss_All){
+            dismiss_Next = false;
             return;
         }
 

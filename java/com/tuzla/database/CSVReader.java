@@ -22,11 +22,11 @@ public class CSVReader {
      * The default line to start reading.
      */
     public static final int DEFAULT_SKIP_LINES = 0;
-    private BufferedReader br;
+    private final BufferedReader br;
     private boolean hasNext = true;
-    private char separator;
-    private char quotechar;
-    private int skipLines;
+    private final char separator;
+    private final char quotechar;
+    private final int skipLines;
     private boolean linesSkiped;
 
     /**
@@ -144,7 +144,7 @@ public class CSVReader {
             }
         } while (inQuotes);
         tokensOnThisLine.add(sb.toString());
-        return (String[]) tokensOnThisLine.toArray(new String[0]);
+        return tokensOnThisLine.toArray(new String[0]);
 
     }
 
