@@ -9,11 +9,12 @@ Starting date: 12th October, 2019
 
 ### Prerequisites
 
-Just need Android Studio (4.1 or newer version)
+Just need Android Studio
 
 ## Running the tests
 
 - Bell can be on/off, bell tone can be changed 
+- Dismiss next and all are available
 - Vibration can be on/off
 - Android notification is available on lock screen
 - No limit for adding bells
