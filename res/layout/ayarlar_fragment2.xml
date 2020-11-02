@@ -39,7 +39,21 @@
                 android:layout_height="wrap_content"
                 android:focusable="true"
                 android:padding="15dp"
-                android:text="@string/switch1" />
+                android:text="@string/switch1"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            <Switch
+                android:id="@+id/switch3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:clickable="false"
+                android:enabled="false"
+                android:focusable="true"
+                android:padding="15dp"
+                android:text="@string/switch3"
+                android:visibility="gone"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             <Switch
                 android:id="@+id/switch2"
@@ -47,13 +61,17 @@
                 android:layout_height="wrap_content"
                 android:focusable="true"
                 android:padding="15dp"
-                android:text="@string/switch2" />
+                android:text="@string/switch2"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             <Button
                 android:id="@+id/ringTonebutton"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ringToneSelect" />
+                android:padding="15dp"
+                android:text="@string/ringToneSelect"
+                android:textAlignment="center"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -39,8 +39,11 @@ public class MyAlarm extends BroadcastReceiver {
         if (!pref.getBoolean("hizmetDurumu", false)) {
             return;
         }
-        if (dismiss_Next || dismiss_All){
+        if (dismiss_Next){
             dismiss_Next = false;
+            return;
+        }
+        if (dismiss_All){
             return;
         }
 

@@ -19,11 +19,17 @@ import static com.tuzla.derzil3.globalDegerler.GLOBAL_hizmetDurumuMesaji;
 public class zamanAppWidget extends AppWidgetProvider {
     private static SharedPreferences pref;
 
+    private static final String ACTION_CLICK = "ACTION_CLICK";
+
     public void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
         //düğmeye basınca ana program açılır, ilk mesaj yüklenir
         Intent intent = new Intent(context, MainActivity.class);
+
+        intent.setAction(ACTION_CLICK);
+        intent.putExtra("appWidgetId", appWidgetId);
+
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.zaman_app_widget);
         views.setOnClickPendingIntent(R.id.ayarbutton, pendingIntent);
@@ -87,6 +93,19 @@ public class zamanAppWidget extends AppWidgetProvider {
         } else {
             views.setViewVisibility(R.id.ayarbutton, View.GONE);
             views.setViewVisibility(R.id.appwidget_text, View.GONE);
+        }
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        String intentAction = intent.getAction();
+
+        if (intentAction.equals(ACTION_CLICK)) {
+            Bundle extras = intent.getExtras();
+            Integer appWidgetId = extras.getInt("appWidgetId");
+            //Toast.makeText(context, "TIK "+appWidgetId, Toast.LENGTH_SHORT).show();
+        } else {
+            super.onReceive(context, intent);
         }
     }
 

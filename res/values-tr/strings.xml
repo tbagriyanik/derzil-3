@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Ödev Zilleri</string>
-    <string name="tab_text_1">Teneffüsler</string>
+    <string name="app_name">Görev Zilleri</string>
+    <string name="tab_text_1">Ziller</string>
     <string name="tab_text_2">Ayarlar</string>
     <string name="zilYok">Şimdilik zil yok…</string>
     <string name="derZilServisKanali">derZil Hizmet Kanalı</string>
@@ -12,7 +12,7 @@
     <string name="widgetFontSize">Widget Yazı Büyüklüğü</string>
     <string name="arkaplan_renk_rgba">Widget arkaplan rengi: RGB ve Şeffaflık</string>
     <string name="defaultVal">Varsayılan Değerler</string>
-    <string name="teneffus_adi">Teneffüs Adı</string>
+    <string name="teneffus_adi">Zil Adı</string>
     <string name="saatDakikaSure">Saat:Dakika-Süre</string>
     <string name="action_settings">Ayarlar</string>
     <string name="save">Kaydet</string>
@@ -41,7 +41,8 @@
     <string name="importTxt">Dosyadan Al</string>
     <string name="exportTxt">Dosyaya Aktar</string>
     <string name="ayarlarHakkinda">Dosya izni, zillerin yedeklenmesi için gerekir.\nPil tasarruf modları uygulamanın kapanmasına neden olabilir, istisna ekleyebilirsiniz.</string>
-    <string name="ringToneSelect">Çalma Sesi Seç</string>
+    <string name="ringToneSelect">Zil Sesi Seç</string>
     <string name="dismissNext">Yaklaşan Zili Çalma</string>
     <string name="dismissAll">Kalan Zilleri Çalma</string>
+    <string name="switch3">Fener Işığı</string>
 </resources>

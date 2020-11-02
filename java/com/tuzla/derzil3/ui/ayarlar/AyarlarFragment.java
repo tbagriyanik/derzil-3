@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.hardware.Camera;
+import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +32,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tuzla.derzil3.MainActivity;
 import com.tuzla.derzil3.R;
 
+import java.util.Objects;
+
+import static android.content.Context.VIBRATOR_SERVICE;
+import static android.content.SharedPreferences.Editor;
+
 public class AyarlarFragment extends Fragment {
 
     SharedPreferences pref;
@@ -44,8 +53,9 @@ public class AyarlarFragment extends Fragment {
         View vw = inflater.inflate(R.layout.ayarlar_fragment2, container, false);
 
         //TANIMLAMALAR
-        final Switch sw1 = vw.findViewById(R.id.switch1);
-        final Switch sw2 = vw.findViewById(R.id.switch2);
+        final Switch sw1 = vw.findViewById(R.id.switch1); //vibration
+        final Switch sw2 = vw.findViewById(R.id.switch2); //ring
+        final Switch sw3 = vw.findViewById(R.id.switch3); //flash
         final SeekBar red = vw.findViewById(R.id.seekBarR);
         final SeekBar gre = vw.findViewById(R.id.seekBarG);
         final SeekBar blu = vw.findViewById(R.id.seekBarB);
@@ -56,7 +66,7 @@ public class AyarlarFragment extends Fragment {
         final RadioGroup rg1 = vw.findViewById(R.id.widgetFontSize);
 
         pref = this.getActivity().getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
+        Editor editor = pref.edit();
 
         // This callback will only be called when MyFragment is at least Started.
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
@@ -76,6 +86,11 @@ public class AyarlarFragment extends Fragment {
             }
         });
 
+        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        sw1.setEnabled(v.hasVibrator()) ;
+
+        sw3.setEnabled(getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH));
+
         //VARSAYILAN tercihler
         if (!pref.contains("titresim")) {
             editor.putBoolean("titresim", false);
@@ -83,6 +98,10 @@ public class AyarlarFragment extends Fragment {
         }
         if (!pref.contains("ses")) {
             editor.putBoolean("ses", true);
+            editor.apply();
+        }
+        if (!pref.contains("fener")) {
+            editor.putBoolean("fener", false);
             editor.apply();
         }
         if (!pref.contains("alpha")) {
@@ -105,6 +124,7 @@ public class AyarlarFragment extends Fragment {
         //NESNELERİN ilk değerleri
         sw1.setChecked(pref.getBoolean("titresim", false));
         sw2.setChecked(pref.getBoolean("ses", true));
+        sw3.setChecked(pref.getBoolean("fener", false));
 
         red.setProgress(pref.getInt("red", 61));
         gre.setProgress(pref.getInt("green", 90));
@@ -134,8 +154,13 @@ public class AyarlarFragment extends Fragment {
         defaultVal.setOnClickListener(new View.OnClickListener() {
                                           @Override
                                           public void onClick(View v) {
+                                              //DEFAULTS button
+                                              pref = Objects.requireNonNull(getContext()).getSharedPreferences("derzilPref", Context.MODE_PRIVATE);
+                                              pref.edit().remove("ringtone").apply();
+
                                               sw1.setChecked(false);
                                               sw2.setChecked(true);
+                                              sw3.setChecked(false);
                                               sw1.callOnClick();
                                               sw2.callOnClick();
                                               red.setProgress(61);
@@ -175,18 +200,65 @@ public class AyarlarFragment extends Fragment {
         sw1.setOnClickListener(new View.OnClickListener() {
                                    @Override
                                    public void onClick(View v) {
-                                       SharedPreferences.Editor editor = pref.edit();
+                                       Editor editor = pref.edit();
                                        editor.putBoolean("titresim", sw1.isChecked());
                                        editor.apply();
+                                       if (sw1.isChecked()){
+                                           Vibrator vib = (Vibrator) getContext().getSystemService(VIBRATOR_SERVICE);
+                                           long[] pattern = {0, 200, 50, 200, 50};
+
+                                           if (vib.hasVibrator())
+                                               vib.vibrate(pattern, -1);
+                                       }
                                    }
                                }
         );
         sw2.setOnClickListener(new View.OnClickListener() {
                                    @Override
                                    public void onClick(View v) {
-                                       SharedPreferences.Editor editor = pref.edit();
+                                       Editor editor = pref.edit();
                                        editor.putBoolean("ses", sw2.isChecked());
                                        editor.apply();
+                                       if (sw2.isChecked()){
+                                           Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                                           if (pref.contains("ringtone")) {
+                                               alarmUri = Uri.parse(pref.getString("ringtone", alarmUri.toString()));
+                                           }
+                                           Ringtone ringtone = RingtoneManager.getRingtone(getContext(), alarmUri);
+                                           ringtone.play();
+                                       }
+                                   }
+                               }
+        );
+        sw3.setOnClickListener(new View.OnClickListener() {
+                                   @Override
+                                   public void onClick(View v) {
+                                       Editor editor = pref.edit();
+                                       editor.putBoolean("fener", sw3.isChecked());
+                                       editor.apply();
+                                       if (sw3.isChecked()){
+                                            //KİLİTLENME OLUYOO!
+                                           Camera cam = Camera.open();
+                                           Camera.Parameters p = cam.getParameters();
+                                           String myString = "010101";
+                                           long blinkDelay =150; //Delay in ms
+                                           for (int i = 0; i < myString.length(); i++) {
+                                               if (myString.charAt(i) == '0') {
+                                                   p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                                                   cam.setParameters(p);
+                                                   cam.startPreview();
+                                               } else {
+                                                   p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                                                   cam.setParameters(p);
+                                                   cam.stopPreview();
+                                               }
+                                               try {
+                                                   Thread.sleep(blinkDelay);
+                                               } catch (InterruptedException e) {
+                                                   e.printStackTrace();
+                                               }
+                                           }
+                                       }
                                    }
                                }
         );
@@ -202,7 +274,7 @@ public class AyarlarFragment extends Fragment {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                SharedPreferences.Editor editor = pref.edit();
+                Editor editor = pref.edit();
                 editor.putInt("red", progress);
                 editor.apply();
                 TextRgba.setBackgroundColor(Color.argb(
@@ -223,7 +295,7 @@ public class AyarlarFragment extends Fragment {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                SharedPreferences.Editor editor = pref.edit();
+                Editor editor = pref.edit();
                 editor.putInt("green", progress);
                 editor.apply();
                 TextRgba.setBackgroundColor(Color.argb(
@@ -244,7 +316,7 @@ public class AyarlarFragment extends Fragment {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                SharedPreferences.Editor editor = pref.edit();
+                Editor editor = pref.edit();
                 editor.putInt("blue", progress);
                 editor.apply();
                 TextRgba.setBackgroundColor(Color.argb(
@@ -265,7 +337,7 @@ public class AyarlarFragment extends Fragment {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                SharedPreferences.Editor editor = pref.edit();
+                Editor editor = pref.edit();
                 editor.putInt("alpha", progress);
                 editor.apply();
                 TextRgba.setBackgroundColor(Color.argb(
@@ -278,7 +350,7 @@ public class AyarlarFragment extends Fragment {
         rg1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                SharedPreferences.Editor editor = pref.edit();
+                Editor editor = pref.edit();
                 switch (checkedId) {
                     case R.id.radioButton1:
                         editor.putInt("fontSize", 1);
@@ -307,7 +379,7 @@ public class AyarlarFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 999 && resultCode == Activity.RESULT_OK) {
             Uri uri = (Uri) data.getExtras().get(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
-            SharedPreferences.Editor editor = pref.edit();
+            Editor editor = pref.edit();
             editor.putString("ringtone", uri.toString());
             editor.apply();
 

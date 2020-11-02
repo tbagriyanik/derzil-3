@@ -84,5 +84,6 @@ public class derzilReceiver extends BroadcastReceiver {
         Log.e("alarm BAŞLATT", "Zaman: " + formatter.format(date));
 
         dismiss_All = false; //gün içindeki alarmları çalsın, sonraki günde
+        dismiss_Next = false;
     }
 }
