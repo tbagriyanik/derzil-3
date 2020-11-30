@@ -106,6 +106,19 @@
                     android:textStyle="bold" />
 
                 <Button
+                    android:id="@+id/zillerHaftalikButton"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:fontFamily="sans-serif"
+                    android:onClick="zillerHaftalikAc"
+                    android:text="@string/tab_text_3"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Button
                     android:id="@+id/settingsButton"
                     style="@style/Widget.AppCompat.Button"
                     android:layout_width="match_parent"

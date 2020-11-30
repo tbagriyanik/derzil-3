@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="17dp"
+        android:contentDescription="@string/_12"
         android:src="?attr/homeAsUpIndicator"
         android:tint="#000"
         app:backgroundTint="@color/colorPrimaryDark"
@@ -145,25 +146,25 @@
                     android:id="@+id/radioButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12" />
+                    android:text="@string/_12" />
 
                 <RadioButton
                     android:id="@+id/radioButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="14" />
+                    android:text="@string/_14" />
 
                 <RadioButton
                     android:id="@+id/radioButton3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="18" />
+                    android:text="@string/_18" />
 
                 <RadioButton
                     android:id="@+id/radioButton4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20" />
+                    android:text="@string/_20" />
 
             </RadioGroup>
 

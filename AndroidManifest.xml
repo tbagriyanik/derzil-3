@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -24,11 +23,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name=".weeklyActivity"></activity>
         <activity
             android:name="com.tuzla.database.swipeActivity"
             android:label="@string/app_name" />
         <activity
-            android:name="com.tuzla.derzil3.ayarlarActivity"
+            android:name=".ayarlarActivity"
             android:label="@string/action_settings" />
 
         <service

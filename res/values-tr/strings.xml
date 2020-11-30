@@ -3,12 +3,14 @@
     <string name="app_name">Görev Zilleri</string>
     <string name="tab_text_1">Ziller</string>
     <string name="tab_text_2">Ayarlar</string>
+    <string name="tab_text_3">Haftalık Görünüm</string>
     <string name="zilYok">Şimdilik zil yok…</string>
     <string name="derZilServisKanali">derZil Hizmet Kanalı</string>
     <string name="arkaplanHizmetiOk">Bildirim çalışıyor</string>
     <string name="arkaplanHizmetiNo">Bildirim çalışmıyor</string>
     <string name="switch1">Titreşim</string>
     <string name="switch2">Zil Sesi</string>
+    <string name="switch3">Fener Işığı</string>
     <string name="widgetFontSize">Widget Yazı Büyüklüğü</string>
     <string name="arkaplan_renk_rgba">Widget arkaplan rengi: RGB ve Şeffaflık</string>
     <string name="defaultVal">Varsayılan Değerler</string>
@@ -17,11 +19,11 @@
     <string name="action_settings">Ayarlar</string>
     <string name="save">Kaydet</string>
     <string name="listeIpucu">Sola sürükleme silme\nSimgesi ile düzenleme</string>
+    <string name="Success">İşlem Başarılı</string>
     <string name="Error">İşlem Başarısız!</string>
     <string name="emptyError">Boş alan bırakılamaz</string>
     <string name="about">derZil bir çoklu alarm uygulamasıdır.\nAna ekranınıza bir widget ekleyebilir, kilit ekranında bildirimleri görebilirsiniz.\nWidget`ınızı özelleştirmek kolaydır. Zil zamanlarınızı ekleyin ve zamanı gelince uyarı alın.\nhttp://yunus.sf.net</string>
     <string name="todo">Yapılacak</string>
-    <string name="Success">İşlem Başarılı</string>
     <string name="activeState">Aktif</string>
     <string name="hafta1">Pt</string>
     <string name="hafta2">Sa</string>
@@ -44,5 +46,10 @@
     <string name="ringToneSelect">Zil Sesi Seç</string>
     <string name="dismissNext">Yaklaşan Zili Çalma</string>
     <string name="dismissAll">Kalan Zilleri Çalma</string>
-    <string name="switch3">Fener Işığı</string>
+    <string name="_12">12</string>
+    <string name="_14">14</string>
+    <string name="_18">18</string>
+    <string name="_20">20</string>
+
+
 </resources>

@@ -1,0 +1,2037 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".weeklyActivity">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabHome2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="17dp"
+        android:contentDescription="@string/_12"
+        android:src="?attr/homeAsUpIndicator"
+        android:tint="#000"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:elevation="3dp"
+        app:fabSize="auto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="35dp" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fadeScrollbars="false"
+            android:isScrollContainer="false"
+            android:overScrollMode="always"
+            android:scrollbarAlwaysDrawHorizontalTrack="true"
+            android:scrollbarAlwaysDrawVerticalTrack="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewPT"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/acikMavi"
+                        android:gravity="center|left"
+                        android:text="@string/hafta1"
+                        android:textAlignment="center"
+                        android:textColor="@color/acikGri"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/textView33"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@color/koyuGri"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="07:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView34"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@color/colorAccent"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="08:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/acikGri" />
+
+                    <TextView
+                        android:id="@+id/textView35"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="09:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView36"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="10:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView37"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="11:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView38"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="12:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView39"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="13:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView40"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="14:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView41"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="15:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView42"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="16:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView43"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="17:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView44"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="18:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView45"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="19:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView46"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="20:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView47"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="21:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView48"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="22:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView49"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="23:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView50"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="00:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView51"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="01:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView52"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="02:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView53"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="03:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView54"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="04:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView55"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="05:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView56"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="06:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewSA"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/acikMavi"
+                        android:gravity="center|left"
+                        android:text="@string/hafta2"
+                        android:textAlignment="center"
+                        android:textColor="@color/acikGri"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/textView57"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="07:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView58"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="08:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView59"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@color/acikMavi"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="09:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/acikGri" />
+
+                    <TextView
+                        android:id="@+id/textView60"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="10:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView61"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="11:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView62"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="12:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView63"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="13:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView64"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="14:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView65"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="15:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView66"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="16:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView67"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="17:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView68"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="18:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView69"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="19:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView70"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="20:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView71"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="21:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView72"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="22:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView73"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="23:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView74"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="00:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView75"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="01:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView76"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="02:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView77"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="03:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView78"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="04:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView79"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="05:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView80"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="06:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewCA"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/acikMavi"
+                        android:gravity="center|left"
+                        android:text="@string/hafta3"
+                        android:textAlignment="center"
+                        android:textColor="@color/acikGri"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/textView81"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="07:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView82"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="08:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView83"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="09:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView84"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="10:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView85"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="11:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView86"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="12:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView87"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="13:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView88"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="14:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView89"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="15:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView90"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="16:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView91"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="17:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView92"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="18:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView93"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="19:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView94"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="20:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView95"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="21:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView96"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="22:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView97"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="23:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView98"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="00:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView99"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="01:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView100"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="02:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView101"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="03:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView102"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="04:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView103"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="05:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView104"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="06:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewPE"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/acikMavi"
+                        android:gravity="center|left"
+                        android:text="@string/hafta4"
+                        android:textAlignment="center"
+                        android:textColor="@color/acikGri"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/textView105"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="07:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView106"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="08:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView107"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="09:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView108"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="10:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView109"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="11:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView110"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="12:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView111"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="13:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView112"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="14:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView113"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="15:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView114"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="16:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView115"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="17:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView116"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="18:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView117"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="19:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView118"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="20:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView119"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="21:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView120"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="22:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView121"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="23:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView122"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="00:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView123"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="01:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView124"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="02:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView125"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="03:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView126"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="04:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView127"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="05:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView128"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="06:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewCU"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/acikMavi"
+                        android:gravity="center|left"
+                        android:text="@string/hafta5"
+                        android:textAlignment="center"
+                        android:textColor="@color/acikGri"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/textView129"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="07:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView130"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="08:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView131"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="09:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView132"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="10:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView133"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="11:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView134"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="12:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView135"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="13:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView136"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="14:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView137"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="15:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView138"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="16:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView139"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="17:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView140"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="18:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView141"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="19:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView142"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="20:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView143"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="21:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView144"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="22:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView145"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="23:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView146"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="00:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView147"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="01:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView148"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="02:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView149"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="03:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView150"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="04:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView151"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="05:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView152"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="06:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewCT"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/arkaplan"
+                        android:gravity="center|left"
+                        android:text="@string/hafta6"
+                        android:textAlignment="center"
+                        android:textColor="@color/acikGri"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/textView153"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="07:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView154"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="08:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView155"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="09:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView156"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="10:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView157"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="11:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView158"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="12:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView159"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="13:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView160"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="14:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView161"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="15:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView162"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="16:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView163"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="17:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView164"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="18:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView165"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="19:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView166"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="20:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView167"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="21:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView168"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="22:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView169"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="23:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView170"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="00:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView171"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="01:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView172"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="02:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView173"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="03:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView174"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="04:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView175"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="05:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView176"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="06:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewPZ"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/arkaplan"
+                        android:gravity="center|left"
+                        android:text="@string/hafta7"
+                        android:textAlignment="center"
+                        android:textColor="@color/acikGri"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/textView177"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="07:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView178"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="08:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView179"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="09:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView180"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="10:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView181"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="11:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView182"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="12:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView183"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="13:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView184"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="14:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView185"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="15:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView186"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="16:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView187"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="17:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView188"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="18:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView189"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="19:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView190"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="20:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView191"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="21:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView192"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="22:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView193"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="23:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView194"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="00:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView195"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="01:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView196"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="02:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView197"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="03:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView198"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="04:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView199"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="05:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                    <TextView
+                        android:id="@+id/textView200"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="2dp"
+                        android:text="06:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/arkaplanTrans" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </HorizontalScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

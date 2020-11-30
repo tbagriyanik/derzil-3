@@ -2,12 +2,14 @@
     <string name="app_name">Task Bells</string>
     <string name="tab_text_1">Breaks</string>
     <string name="tab_text_2">Settings</string>
+    <string name="tab_text_3">View Weekly</string>
     <string name="zilYok">No bells for now…</string>
     <string name="derZilServisKanali">derZil Service Channel</string>
     <string name="arkaplanHizmetiOk">Notification is active</string>
     <string name="arkaplanHizmetiNo">Notification is passive</string>
     <string name="switch1">Vibration</string>
     <string name="switch2">Bell Sound</string>
+    <string name="switch3">Flash Light</string>
     <string name="widgetFontSize">Widget Font size</string>
     <string name="arkaplan_renk_rgba">Widget background color: RGB and Alpha</string>
     <string name="defaultVal">Load Defaults</string>
@@ -16,10 +18,10 @@
     <string name="action_settings">Settings</string>
     <string name="save">Save</string>
     <string name="listeIpucu">Swipe left to delete\nClick icon to edit</string>
+    <string name="Success">Action Successful</string>
     <string name="Error">Action Failed!</string>
     <string name="emptyError">Can not leave blank fields</string>
     <string name="about">derZil is a multi alarm notification application.\nYou can add a widget to your main screen or see the lock screen notification.\nCustomizing your widget is easy. Add your bell times and get warned on time.\nhttp://yunus.sf.net</string>
-    <string name="Success">Action Successful</string>
     <string name="activeState">Active</string>
     <string name="hafta1">Mo</string>
     <string name="hafta2">Tu</string>
@@ -43,6 +45,8 @@
     <string name="ringToneSelect">Bell Tone Select</string>
     <string name="dismissNext">Dismiss Next</string>
     <string name="dismissAll">Dismiss All</string>
-    <string name="switch3">Flash Light</string>
-
+    <string name="_12">12</string>
+    <string name="_14">14</string>
+    <string name="_18">18</string>
+    <string name="_20">20</string>
 </resources>
