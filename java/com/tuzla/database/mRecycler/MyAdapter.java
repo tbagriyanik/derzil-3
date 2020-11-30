@@ -41,9 +41,9 @@ import static com.tuzla.derzil3.globalDegerler.GLOBAL_CSVFolder;
 
 public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
 
-    RecyclerView rv;
     private final Context c;
     private final ArrayList<Ziller> zillers;
+    RecyclerView rv;
     private EditText nameEditText, durationEditText;
     private TextView saatDakikaTextView;
     private CheckBox hafta1, hafta2, hafta3, hafta4, hafta5, hafta6, hafta7;

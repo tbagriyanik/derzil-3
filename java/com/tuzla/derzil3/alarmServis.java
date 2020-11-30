@@ -42,13 +42,10 @@ public class alarmServis extends Service {
     static DBAdapter db;
 
     static ArrayList<Ziller> zillers = new ArrayList<>();
-
+    private final Handler handler = new Handler();
     PendingIntent pendingIntent = null;
     ArrayList<PendingIntent> pendingIntentArrayList = new ArrayList<>();
-
     SharedPreferences pref;
-
-    private final Handler handler = new Handler();
     private final Runnable runnable = new Runnable() {
 
         @RequiresApi(api = Build.VERSION_CODES.M)

@@ -23,10 +23,10 @@ public class CSVReader {
      */
     public static final int DEFAULT_SKIP_LINES = 0;
     private final BufferedReader br;
-    private boolean hasNext = true;
     private final char separator;
     private final char quotechar;
     private final int skipLines;
+    private boolean hasNext = true;
     private boolean linesSkiped;
 
     /**

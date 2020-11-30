@@ -17,9 +17,8 @@ import androidx.core.graphics.ColorUtils;
 import static com.tuzla.derzil3.globalDegerler.GLOBAL_hizmetDurumuMesaji;
 
 public class zamanAppWidget extends AppWidgetProvider {
-    private static SharedPreferences pref;
-
     private static final String ACTION_CLICK = "ACTION_CLICK";
+    private static SharedPreferences pref;
 
     public void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {

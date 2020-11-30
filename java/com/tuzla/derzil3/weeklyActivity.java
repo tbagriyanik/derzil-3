@@ -20,11 +20,10 @@ import java.util.Calendar;
 import java.util.Collections;
 
 public class weeklyActivity extends AppCompatActivity {
-    Handler handler = new Handler();
     static MyAdapter adapter;
     static DBAdapter db;
     static ArrayList<Ziller> zillers = new ArrayList<>();
-
+    Handler handler = new Handler();
     int textViewCount = 170; //saatlik metinler 24x7
     TextView[] textViewArray = new TextView[textViewCount];
 
