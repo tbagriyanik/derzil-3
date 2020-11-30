@@ -87,7 +87,7 @@ public class AyarlarFragment extends Fragment {
         });
 
         Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-        sw1.setEnabled(v.hasVibrator()) ;
+        sw1.setEnabled(v.hasVibrator());
 
         sw3.setEnabled(getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH));
 
@@ -203,7 +203,7 @@ public class AyarlarFragment extends Fragment {
                                        Editor editor = pref.edit();
                                        editor.putBoolean("titresim", sw1.isChecked());
                                        editor.apply();
-                                       if (sw1.isChecked()){
+                                       if (sw1.isChecked()) {
                                            Vibrator vib = (Vibrator) getContext().getSystemService(VIBRATOR_SERVICE);
                                            long[] pattern = {0, 200, 50, 200, 50};
 
@@ -219,7 +219,7 @@ public class AyarlarFragment extends Fragment {
                                        Editor editor = pref.edit();
                                        editor.putBoolean("ses", sw2.isChecked());
                                        editor.apply();
-                                       if (sw2.isChecked()){
+                                       if (sw2.isChecked()) {
                                            Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                                            if (pref.contains("ringtone")) {
                                                alarmUri = Uri.parse(pref.getString("ringtone", alarmUri.toString()));
@@ -236,12 +236,12 @@ public class AyarlarFragment extends Fragment {
                                        Editor editor = pref.edit();
                                        editor.putBoolean("fener", sw3.isChecked());
                                        editor.apply();
-                                       if (sw3.isChecked()){
-                                            //KİLİTLENME OLUYOO!
+                                       if (sw3.isChecked()) {
+                                           //KİLİTLENME OLUYOO!
                                            Camera cam = Camera.open();
                                            Camera.Parameters p = cam.getParameters();
                                            String myString = "010101";
-                                           long blinkDelay =150; //Delay in ms
+                                           long blinkDelay = 150; //Delay in ms
                                            for (int i = 0; i < myString.length(); i++) {
                                                if (myString.charAt(i) == '0') {
                                                    p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);

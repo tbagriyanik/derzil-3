@@ -1,6 +1,7 @@
 package com.tuzla.derzil3;
 
 import android.app.Application;
+import android.os.Environment;
 
 public class globalDegerler extends Application {
     //program içinde veri alışverişi
@@ -10,4 +11,6 @@ public class globalDegerler extends Application {
     public static int GLOBAL_tazeleme = 1500;
     public static boolean dismiss_Next = false;    //sonraki alarm ses/titreşim iptal
     public static boolean dismiss_All = false;     //kalan alarm ses/titreşim iptal
+
+    public static String GLOBAL_CSVFolder = "/" + Environment.DIRECTORY_DOWNLOADS;
 }

@@ -325,13 +325,17 @@ public class alarmServis extends Service {
         if (enKucuk != Long.MAX_VALUE && index != -1) {
             if (enKucuk > 60) {
                 int minutes = (int) (enKucuk % 60);
-                int hours   = (int) (enKucuk / 60);
-                GLOBAL_hizmetBildirimiMesaji = zillers.get(index).getName() + "\n" +
-                        hours + ":" + minutes
-                        + " " + getResources().getString(R.string.hourLeft);
+                int hours = (int) (enKucuk / 60);
+                if (minutes < 10) {
+                    GLOBAL_hizmetBildirimiMesaji = zillers.get(index).getName() + "\n" +
+                            hours + ":0" + minutes
+                            + " " + getResources().getString(R.string.hourLeft);
+                } else
+                    GLOBAL_hizmetBildirimiMesaji = zillers.get(index).getName() + "\n" +
+                            hours + ":" + minutes
+                            + " " + getResources().getString(R.string.hourLeft);
                 //new DecimalFormat("#,#0.0").format(enKucuk / 60f)
-            }
-            else
+            } else
                 GLOBAL_hizmetBildirimiMesaji = zillers.get(index).getName() + "\n" +
                         enKucuk
                         + " " + getResources().getString(R.string.minutesLeft);
@@ -356,8 +360,7 @@ public class alarmServis extends Service {
         return mBuilder;
     }
 
-    public PendingIntent makePendingIntent(String name)
-    {
+    public PendingIntent makePendingIntent(String name) {
         Intent intent = new Intent(this, derzilReceiver.class);
         intent.setAction(name);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);

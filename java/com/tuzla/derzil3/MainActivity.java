@@ -247,9 +247,11 @@ public class MainActivity extends AppCompatActivity {
     public void dismissNextClick(View view) {
         dismiss_Next = !dismiss_Next;
     }
+
     public void dismissAllClick(View view) {
         dismiss_All = !dismiss_All;
     }
+
     public void servisKapaAc(View view) {
         if (m1.getTag() != "ATLA") {
             if (!checkServiceRunning()) {

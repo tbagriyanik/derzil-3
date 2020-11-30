@@ -36,6 +36,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import static com.tuzla.derzil3.globalDegerler.GLOBAL_CSVFolder;
+
 
 public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
 
@@ -312,7 +314,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
             @Override
             public void onClick(View v) {
                 //değerleri dosyaya veritabanından at
-                File exportDir = new File(Environment.getExternalStorageDirectory() + "/derZilData", "");
+                File exportDir = new File(Environment.getExternalStorageDirectory(), GLOBAL_CSVFolder);
                 if (!exportDir.exists()) {
                     exportDir.mkdirs();
                 }

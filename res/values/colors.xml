@@ -10,4 +10,6 @@
     <color name="acikGri">#F5F5F5</color>
     <color name="koyuGri">#aaa</color>
     <color name="acikMavi">#9ABCF7</color>
+    <color name="acikTuruncu">#FDE584</color>
+    <color name="koyuTuruncu">#F6BD5A</color>
 </resources>

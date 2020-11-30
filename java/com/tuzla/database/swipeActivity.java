@@ -47,6 +47,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 
+import static com.tuzla.derzil3.globalDegerler.GLOBAL_CSVFolder;
 import static com.tuzla.derzil3.globalDegerler.GLOBAL_sonGun;
 
 public class swipeActivity extends AppCompatActivity {
@@ -266,17 +267,17 @@ public class swipeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //yeni değerleri dosyadan veritabanına yolla
                 CSVReader csvReader = null;
-                File exportDir = new File(Environment.getExternalStorageDirectory(), "/derZilData/derZil.csv");
+                File exportDir = new File(Environment.getExternalStorageDirectory(), GLOBAL_CSVFolder + "/derZil.csv");
                 if (!exportDir.exists()) {
                     Toast.makeText(swipeActivity.this,
-                            Environment.getExternalStorageDirectory() + "/derZilData/derZil.csv \nNot found!"
+                            Environment.getExternalStorageDirectory() + GLOBAL_CSVFolder + "/derZil.csv \nNot found!"
                             , Toast.LENGTH_SHORT).show();
                     return; //no data exist
                 }
 
                 try {
                     csvReader = new CSVReader(new FileReader(
-                            Environment.getExternalStorageDirectory() + "/derZilData/derZil.csv"));
+                            Environment.getExternalStorageDirectory() + GLOBAL_CSVFolder + "/derZil.csv"));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                     Toast.makeText(swipeActivity.this,

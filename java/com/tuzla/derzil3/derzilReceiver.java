@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
 import static com.tuzla.derzil3.globalDegerler.dismiss_All;
 import static com.tuzla.derzil3.globalDegerler.dismiss_Next;
 
@@ -23,19 +24,18 @@ public class derzilReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
 
-            switch (action)
-            {
-                case "dismiss_actionNext":
-                    dismiss_Next = !dismiss_Next;
-                    if (dismiss_Next)
-                        Toast.makeText(context, context.getResources().getString(R.string.dismissNext), Toast.LENGTH_SHORT).show();
-                    break;
-                case "dismiss_actionAll":
-                    dismiss_All = !dismiss_All;
-                    if (dismiss_All)
-                        Toast.makeText(context, context.getResources().getString(R.string.dismissAll), Toast.LENGTH_SHORT).show();
-                    break;
-            }
+        switch (action) {
+            case "dismiss_actionNext":
+                dismiss_Next = !dismiss_Next;
+                if (dismiss_Next)
+                    Toast.makeText(context, context.getResources().getString(R.string.dismissNext), Toast.LENGTH_SHORT).show();
+                break;
+            case "dismiss_actionAll":
+                dismiss_All = !dismiss_All;
+                if (dismiss_All)
+                    Toast.makeText(context, context.getResources().getString(R.string.dismissAll), Toast.LENGTH_SHORT).show();
+                break;
+        }
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
             //cihaz açılınca servisi çalıştırır
