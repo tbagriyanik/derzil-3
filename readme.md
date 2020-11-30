@@ -18,6 +18,7 @@ Just need Android Studio
 - Vibration can be on/off
 - Android notification is available on lock screen
 - No limit for adding bells
+- "View Weekly" is for task summary
 - Bells can be back-up as a CSV file (need Storage permission)
 - Battery consumption is low
 - You can add widget to your main screen
